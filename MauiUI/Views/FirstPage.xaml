@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="MauiUI.Views.FirstPage"
+             Title="FirstPage">
+    <VerticalStackLayout>
+        <!-- ViewModelのプロパティとバインディングさせる。ReactiveProperty を使用する際は .Value を付ける-->
+        <Label Text="{Binding Person.Value.Name}" />
+        <Label Text="{Binding Person.Value.Job}" />
+        <!-- ViewModelのコマンドとバインディング。ReactiveCommand は .Value は不要-->
+        <Button Command="{Binding LotteryCommand}" Text="抽選!!" />
+        <!-- 画像ファイルは Resources/Images に配置するだけでよい -->
+        <Image
+      Source="rancyan_minikowashiya.png"
+      HeightRequest="200"
+      HorizontalOptions="Center" />
+        <!-- ViewModelのコマンドとバインディング-->
+        <Button Command="{Binding NextPageNavigationCommand}" Text="Next Page!!" />
+    </VerticalStackLayout>
+</ContentPage>

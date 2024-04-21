@@ -1,0 +1,71 @@
+
+<Shell
+    x:Name="shell"
+    x:Class="MauiUI.AppShell"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:local="clr-namespace:MauiUI"
+    xmlns:views="clr-namespace:MauiUI.Views"
+    xmlns:viewmodel="clr-namespace:MauiUI.ViewModels"
+    Shell.FlyoutBehavior="Flyout"
+    Shell.TabBarIsVisible="False"
+    Shell.BackgroundColor="#502BD3"
+    Shell.TitleColor="White"
+    Title="MauiUI"
+    >
+
+    <!--<ShellContent
+        Title="Home"
+        ContentTemplate="{DataTemplate local:MainPage}"
+        Route="MainPage" />-->
+
+    <Shell.ItemTemplate>
+        <DataTemplate>
+            <HorizontalStackLayout Spacing="25" Padding="10">
+                <Image Source="{Binding FlyoutIcon}"
+                 Aspect="AspectFill"
+                 HeightRequest="25"
+                 WidthRequest="25"
+                 HorizontalOptions="End"/>
+
+                <Label Text="{Binding Title}"
+                 FontSize="25"
+                 TextColor="Green"
+                 FontAttributes="Bold"/>
+
+            </HorizontalStackLayout>
+        </DataTemplate>
+    </Shell.ItemTemplate>
+
+
+    <FlyoutItem Title="Home Page" Icon="dotnet_bot.svg" IsVisible="True">
+        <Tab>
+            <ShellContent ContentTemplate="{DataTemplate views:HomePage}" />
+        </Tab>
+    </FlyoutItem>
+
+    <FlyoutItem Title="Setting Page" Icon="team.svg" >
+        <Tab>
+            <ShellContent ContentTemplate="{DataTemplate views:SettingPage}" />
+        </Tab>
+    </FlyoutItem>
+
+
+    <Shell.FlyoutHeader>
+        <VerticalStackLayout Margin="10">
+
+            <Image Source="tozannet_logo.jpg" Margin="0, 15, 45, 0"/>
+
+        </VerticalStackLayout>
+    </Shell.FlyoutHeader>
+
+
+    <Shell.FlyoutFooter>
+        <VerticalStackLayout Margin="10">
+            <Button Text="Sign Out" Command="{Binding SignOutCommand}" />
+            <Label HorizontalTextAlignment="Start" Padding="5" Margin="0, 10" Text="App Maui Ver 1.0" FontSize="15"/>
+            <Label></Label>
+        </VerticalStackLayout>
+    </Shell.FlyoutFooter>
+
+</Shell>

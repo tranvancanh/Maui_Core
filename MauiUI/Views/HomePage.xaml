@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="MauiUI.Views.HomePage"
+             xmlns:viewmodel="clr-namespace:MauiUI.ViewModels"
+             xmlns:helpers="clr-namespace:MauiUI.Helpers"
+             x:DataType="viewmodel:HomePageViewModel"
+             Title="Home Page"
+             >
+
+    <VerticalStackLayout>
+        <Label 
+            Text="Welcome to .NET MAUI!"
+            VerticalOptions="Center" 
+            HorizontalOptions="Center" />
+
+        <Entry Placeholder="Employee ID" Text="{Binding EmployeeId}"/>
+
+        <Button
+            BackgroundColor="#1d9bf0" 
+            HorizontalOptions="Center"
+            Text="新規登録">
+            <Button.ImageSource>
+                <FontImageSource 
+                    FontFamily="MaterialDesignIcons"
+                    Glyph="{x:Static helpers:MaterialDesignIconFonts.PlusCircle}"
+                    Size="25" />
+            </Button.ImageSource>
+        </Button>
+    </VerticalStackLayout>
+
+</ContentPage>
