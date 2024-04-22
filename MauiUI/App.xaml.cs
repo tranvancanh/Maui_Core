@@ -31,8 +31,8 @@ namespace MauiUI
 
             //InitApp = new Command(async () => await NewInitApp());
 
-            MainPage = appSystemSetting;
-            //MainPage = new NavigationPage(appSystemSetting);
+            MainPage = new NavigationPage(appSystemSetting);
+            //MainPage = appSystemSetting;
             //MainPage = new EmployeeListPage();
 
         }

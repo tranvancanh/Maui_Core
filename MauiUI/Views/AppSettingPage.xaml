@@ -4,15 +4,13 @@
              x:Class="MauiUI.Views.AppSettingPage"
              xmlns:viewmodel="clr-namespace:MauiUI.ViewModels"
              xmlns:controls="clr-namespace:MauiUI.Controls" 
-
              x:DataType="viewmodel:AppSettingViewModel"
              xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
-             NavigationPage.HasBackButton="False"
-             Title="設定">
-
+             NavigationPage.HasNavigationBar="False"
+             NavigationPage.HasBackButton="False">
 
     <StackLayout>
-        <Frame CornerRadius="0" BorderColor="Transparent" Background="#f2f2f2"  Margin="0, 5, 0, 10" Padding="0">
+        <Frame CornerRadius="0" BorderColor="Transparent" Background="{DynamicResource FromBackColor}">
             <StackLayout HorizontalOptions="Center">
                 <Label Text="ハンディ設定" FontSize="Large" />
             </StackLayout>
@@ -28,7 +26,8 @@
                             <StackLayout>
                                 <controls:CustomEntry Text="{Binding UrlConnect}" 
                                     VerticalOptions="CenterAndExpand" Margin="10, 0, 10, 0" FontSize="15"
-                                    BorderColor="{DynamicResource BorderColor}" BorderThickness="1" CornerRadius="10" Padding="10" MaxLength="500">
+                                    BorderColor="{DynamicResource BorderColor}" BorderThickness="1" CornerRadius="10" Padding="10" MaxLength="500" 
+                                    ClearButtonVisibility="WhileEditing" Keyboard="Url">
                                 </controls:CustomEntry>
                                 <!--<Entry Text="{Binding UrlConnect}" VerticalOptions="Start" Margin="10, 0, 10, 0" FontSize="15"/>-->
                             </StackLayout>
@@ -44,9 +43,10 @@
 
                             <Label Text="会社コード" FontAttributes="Bold" Style="{StaticResource LabelTitleStyle}"/>
                             <StackLayout>
-                                <controls:CustomEntry Text="{Binding CompanyCode}" 
+                                <controls:CustomEntry x:Name="customEtry" Text="{Binding CompanyCode}" 
                                     VerticalOptions="CenterAndExpand" Margin="10, 0, 10, 0" FontSize="15"
-                                    BorderColor="{DynamicResource BorderColor}" BorderThickness="1" CornerRadius="10" Padding="10" MaxLength="10">
+                                    BorderColor="{DynamicResource BorderColor}"
+                                    BorderThickness="1" CornerRadius="10" Padding="10" MaxLength="10" >
                                 </controls:CustomEntry>
                             </StackLayout>
 
@@ -54,7 +54,7 @@
                             <StackLayout>
                                 <controls:CustomEntry Text="{Binding CompanyPassword}" 
                                         VerticalOptions="CenterAndExpand" Margin="10, 0, 10, 0" FontSize="15"
-                                        BorderColor="{DynamicResource BorderColor}" BorderThickness="1" CornerRadius="10" Padding="10" MaxLength="10">
+                                        BorderColor="{DynamicResource BorderColor}" BorderThickness="1" CornerRadius="10" Padding="10" MaxLength="10" Keyboard="Numeric">
                                 </controls:CustomEntry>
                             </StackLayout>
 
@@ -98,9 +98,10 @@
 
                 <StackLayout Grid.Row="0" BackgroundColor=" Transparent" Orientation="Horizontal" Margin="10">
                     <Button FontFamily="FontAwesome6Solid" Text="&#xf048; 戻る" 
-                    Background="{DynamicResource SecondaryButtonColor}" TextColor="{DynamicResource White}"  HorizontalOptions="StartAndExpand" WidthRequest="140" HeightRequest="80" />
+                        Background="{DynamicResource SecondaryButtonColor}" TextColor="{DynamicResource White}" HorizontalOptions="StartAndExpand" WidthRequest="140" HeightRequest="80" 
+                        Command="{Binding BackCommand}"/>
                     <Button FontFamily="FontAwesome6Solid" Text="&#xe09a; 保存" 
-                    Background="{DynamicResource PrimaryButtonColor}" TextColor="{DynamicResource White}" HorizontalOptions="EndAndExpand" WidthRequest="140" HeightRequest="80" />
+                        Background="{DynamicResource PrimaryButtonColor}" TextColor="{DynamicResource White}" HorizontalOptions="EndAndExpand" WidthRequest="140" HeightRequest="80" />
                 </StackLayout>
             </StackLayout>
         </ScrollView>
@@ -133,7 +134,7 @@
             <Setter Property="FontSize" Value="15" />
             <Setter Property="Padding" Value="10, 5, 10, 5" />
             <Setter Property="Margin" Value="30, 0, 30, 10" />
-            <Setter Property="BackgroundColor" Value="#f2f2f2" />
+            <Setter Property="BackgroundColor" Value="{DynamicResource FromBackColor}" />
         </Style>
 
         <Style TargetType="StackLayout" x:Key="InputStackLayout" >

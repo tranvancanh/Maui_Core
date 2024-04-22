@@ -53,39 +53,22 @@ namespace MauiUI
             builder.Services.AddSingleton<IDataService, DataService>();
             builder.Services.AddSingleton<IAppSettingService, AppSettingService>();
 
-            // Add Services DI, Views , View Models
-            //builder.Services.AddTransient<MainPage>();
-            //builder.Services.AddTransient<MainViewModel>();
-            //builder.Services.AddTransient<HomePage>();
-            //builder.Services.AddTransient<HomePageViewModel>();
+            // Add Views
             builder.Services.AddTransient<LoginPage>();
             builder.Services.AddTransient<AppSettingPage>();
+            builder.Services.AddTransient<EmployeeListPage>();
+
+            // Add View Models
             builder.Services.AddTransient<LoginViewModel>();
             builder.Services.AddTransient<AppSettingViewModel>();
+            builder.Services.AddTransient<EmployeesViewModel>();
 
-
-
-
-
-            //Views
-            //builder.Services.AddTransient<HomePage>();
-            //builder.Services.AddTransient<LoginPage>();
-            //builder.Services.AddTransient<DashboardPage>();
-            //builder.Services.AddTransient<LoadingPage>();
-            //builder.Services.AddTransient<StudentDashboardPage>();
-            //builder.Services.AddTransient<StudentProfilePage>();
-
-
-            //View Models
-            //builder.Services.AddTransient<HomePageViewModel>();
-            //builder.Services.AddTransient<LoginPageViewModel>();
-            //builder.Services.AddTransient<DashboardPageViewModel>();
-            //builder.Services.AddTransient<LoadingPageViewModel>();
-            //builder.Services.AddTransient<StudentDashboardViewModel>();
+            // Add Services
+            builder.Services.AddSingleton<INavigationService, NavigationService>();
 
 
             //#if DEBUG
-            //    		builder.Logging.AddDebug();
+            //    builder.Logging.AddDebug();
             //#endif
 
             builder.ConfigureLifecycleEvents(events =>

@@ -10,7 +10,9 @@ public partial class AppSettingPage : ContentPage
 		InitializeComponent();
         _appSystemSetting = appSystemSetting;
         BindingContext = _appSystemSetting;
-	}
+        //BindingContext = new NavigationPage(_appSystemSetting);
+        //this.BindingContext = new AppSettingViewModel(Navigation);
+    }
 
     /// <summary>
     /// デフォルト戻るボタンを無効化
@@ -35,4 +37,19 @@ public partial class AppSettingPage : ContentPage
     {
         Navigation.PopAsync();
     }
+
+    //private void customEtry_Focused(object sender, FocusEventArgs e)
+    //{
+    //    _appSystemSetting.customEtry_Focused();
+    //}
+
+    //private void customEtry_Focused(object sender, FocusEventArgs e)
+    //{
+    //    ResourceDictionary targetResource = Microsoft.Maui.Controls.Application.Current.Resources.MergedDictionaries.ElementAt(0);
+
+    //    //this.BackgroundColor = (Color)targetResource["ActiveEntryBackColor"];
+    //    var color = (Color)targetResource["Primary"];
+
+    //    customEtry.BorderColor = color;
+    //}
 }

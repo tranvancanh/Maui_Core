@@ -2,6 +2,7 @@
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using MauiUI.Services;
+using MauiUI.Views;
 using System.Collections.ObjectModel;
 
 namespace MauiUI.ViewModels
@@ -42,19 +43,34 @@ namespace MauiUI.ViewModels
         [ObservableProperty]
         private string pageTitle;
 
+        private readonly INavigationService _navigationService;
         private readonly IAuthService _authService;
         private readonly IAppSettingService _appSettingService;
 
-        public AppSettingViewModel(IAuthService authService, IAppSettingService appSettingService) 
+        public AppSettingViewModel(IAuthService authService, IAppSettingService appSettingService, INavigationService navigationService) 
         {
             _authService = authService;
             _appSettingService = appSettingService;
+            _navigationService = navigationService;
             PageTitle = "アプリ設定";
-            //CompanyName = App.Company.CompanyName;
         }
 
         [RelayCommand]
-        private async void GetLastedMaster()
+        private async Task Back()
+        {
+            //Navigation.PushAsync(new NavigationPage(new EmployeeListPage()), true);
+            await _navigationService.NavigateToSecondPage();
+        }
+
+        //public void customEtry_Focused()
+        //{
+        //    ResourceDictionary targetResource = Microsoft.Maui.Controls.Application.Current.Resources.MergedDictionaries.ElementAt(0);
+        //    var color = (Color)targetResource["Primary"];
+        //    //await Task.CompletedTask;
+        //}
+
+        [RelayCommand]
+        private async Task GetLastedMaster()
         {
 
             //try
@@ -80,7 +96,7 @@ namespace MauiUI.ViewModels
         }
 
         [RelayCommand]
-        private async void LogoutCompany()
+        private async Task LogoutCompany()
         {
             //var result = await Application.Current.MainPage
             //    .ShowPopupAsync(new DisplayDialogPage("会社ログアウトを行います。よろしいですか？"));

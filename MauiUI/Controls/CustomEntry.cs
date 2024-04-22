@@ -4,46 +4,30 @@
     {
         public CustomEntry()
         {
-            try
-            {
-                // get the style of a Label in an unsafe way
-                //var labelStyle = Application.Current!.GetStyle<Entry>();
-
                 //var style = Resources["PrimaryTextColor"];
                 //var targetResource1 = Microsoft.Maui.Controls.Application.Current.Resources;
                 //ResourceDictionary targetResource = Microsoft.Maui.Controls.Application.Current.Resources.MergedDictionaries.ElementAt(0);
-
                 this.FontFamily = "Rounded Mplus 1c";
                 this.FontSize = Device.GetNamedSize(NamedSize.Medium, typeof(Label));
                 //this.TextColor = (Color)targetResource["PrimaryTextColor"];
                 this.Keyboard = Keyboard.Text;
                 this.Focused += OnFocus;
                 this.Unfocused += OnFocusOut;
-            }
-            catch (Exception ex)
-            {
-
-            }
-
         }
 
         void OnFocus(object sender, FocusEventArgs args)
         {
             ResourceDictionary targetResource = Microsoft.Maui.Controls.Application.Current.Resources.MergedDictionaries.ElementAt(0);
-
-            //this.BackgroundColor = (Color)targetResource["ActiveEntryBackColor"];
-            var color = (Color)targetResource["Primary"];
-
-            //BorderColorProperty =  BindableProperty.Create(nameof(BorderColor), typeof(Color), typeof(CustomEntry), color);
-            //this.BorderThickness = 5;
-            //this.BorderColor = Color.FromHex("#dadada");
+            ////this.BackgroundColor = (Color)targetResource["ActiveEntryBackColor"];
+            //var color = (Color)targetResource["EntryFocusColor"];
+            //this.BackgroundColor = color;
         }
 
         void OnFocusOut(object sender, FocusEventArgs args)
         {
-            ResourceDictionary targetResource = Microsoft.Maui.Controls.Application.Current.Resources.MergedDictionaries.ElementAt(0);
-
-            //this.BorderColor = (Color)targetResource["SwitchOffColor"];
+            //ResourceDictionary targetResource = Microsoft.Maui.Controls.Application.Current.Resources.MergedDictionaries.ElementAt(0);
+            //var color = (Color)targetResource["EntryBackgroundColor"];
+            //this.BackgroundColor = color;
         }
 
 
@@ -76,7 +60,7 @@
         public Color BorderColor
         {
             get => (Color)GetValue(BorderColorProperty);
-            set => SetValue(BorderColorProperty, value);
+            set=> SetValue(BorderColorProperty, value);
         }
         /// <summary>
         /// This property cannot be changed at runtime in iOS.

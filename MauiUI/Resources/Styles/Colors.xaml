@@ -45,6 +45,9 @@
     <SolidColorBrush x:Key="Gray900Brush" Color="{StaticResource Gray900}"/>
     <SolidColorBrush x:Key="Gray950Brush" Color="{StaticResource Gray950}"/>
 
+    <Color x:Key="EntryFocusColor">Teal</Color>
+    <Color x:Key="EntryBackgroundColor">WhiteSmoke</Color>
+
     <Color x:Key="MainColor">Teal</Color>
     <Color x:Key="BackgroundColor">WhiteSmoke</Color>
 
