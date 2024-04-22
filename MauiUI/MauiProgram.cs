@@ -1,4 +1,5 @@
 ﻿using CommunityToolkit.Maui;
+using MauiUI.Controls;
 using MauiUI.Services;
 using MauiUI.ViewModels;
 using MauiUI.Views;
@@ -13,21 +14,40 @@ namespace MauiUI
             var builder = MauiApp.CreateBuilder();
             builder
                 .UseMauiApp<App>()
-                //.UseMauiCommunityToolkit()
+                // Initialize the .NET MAUI Community Toolkit by adding the below line of code
+                .UseMauiCommunityToolkit()
+                // After initializing the .NET MAUI Community Toolkit, optionally add additional fonts
                 .ConfigureFonts(fonts =>
                 {
                     fonts.AddFont("OpenSans-Regular.ttf", "OpenSansRegular");
                     fonts.AddFont("OpenSans-Semibold.ttf", "OpenSansSemibold");
+                    fonts.AddFont("Font Awesome 6 Free-Regular-400.otf", "FontAwesome6Regular");
+                    fonts.AddFont("Font Awesome 6 Free-Solid-900.otf", "FontAwesome6Solid");
+
+                    //fonts.AddFont("OpenSans-Regular.ttf", "OpenSansRegular");
+                    //fonts.AddFont("OpenSans-Semibold.ttf", "OpenSansSemibold");
+
                     //fonts.AddFont("MPLUSRounded1c-Regular.ttf", "Rounded Mplus 1c");
                     //fonts.AddFont("MPLUSRounded1c-Bold.ttf", "Rounded Mplus 1c Bold");
                     //fonts.AddFont("Font Awesome 6 Free-Regular-400.otf", "FontAwesome6Regular");
                     //fonts.AddFont("Font Awesome 6 Free-Solid-900.otf", "FontAwesome6Solid");
                     //fonts.AddFont("ZenKurenaido-Regular.ttf", "ZenKurenaidoRegular");
                     //fonts.AddFont("KiwiMaru-Regular.ttf", "KiwiMaruRegular");
-                    
+
                     //fonts.AddFont("OpenSans-Regular.ttf", "OpenSansRegular");
                     //fonts.AddFont("OpenSans-Semibold.ttf", "OpenSansSemibold");
-                });
+                })
+                //                                .ConfigureMauiHandlers((handlers) =>
+                //                                {
+                //#if ANDROID
+                //                                    handlers.AddHandler(typeof(MauiUI.Controls.CustomEntry_old), typeof(MauiUI.Platforms.Android.Renderers.CustomEntryMapper));
+                //#elif IOS
+                //                                //handlers.AddHandler(typeof(PressableView), typeof(XamarinCustomRenderer.iOS.Renderers.PressableViewRenderer));
+                //#endif
+                //                                })
+
+                ;
+
 
             builder.Services.AddSingleton<IAuthService, AuthService>();
             builder.Services.AddSingleton<IDataService, DataService>();
@@ -102,6 +122,14 @@ namespace MauiUI
                            }));
 #endif
 
+            });
+
+            Microsoft.Maui.Handlers.ElementHandler.ElementMapper.AppendToMapping("Classic", (handler, view) =>
+            {
+                if (view is CustomEntry)
+                {
+                    MauiUI.Platforms.Android.Renderers.CustomEntryMapper.Map(handler, view);
+                }
             });
 
             return builder.Build();

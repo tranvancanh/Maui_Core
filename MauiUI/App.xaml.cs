@@ -19,12 +19,15 @@ namespace MauiUI
                 if (view is BorderlessEntry)
                 {
 #if __ANDROID__
-                    handler.PlatformView.SetBackgroundColor(Colors.Blue.ToPlatform());
+                    handler.PlatformView.SetBackgroundColor(Colors.Transparent.ToPlatform());
 #elif __IOS__
+                    handler.PlatformView.BackgroundColor = UIKit.UIColor.Clear;
                     handler.PlatformView.BorderStyle = UIKit.UITextBorderStyle.None;
 #endif
                 }
             });
+
+            ResourceDictionary targetResource = Microsoft.Maui.Controls.Application.Current.Resources.MergedDictionaries.ElementAt(0);
 
             //InitApp = new Command(async () => await NewInitApp());
 
