@@ -5,31 +5,38 @@ namespace MauiUI.AppConfigure
 {
     public sealed class MauiItemDatabase
     {
-        private readonly SQLiteAsyncConnection Database = null;
+        private static readonly SQLiteAsyncConnection database = new SQLiteAsyncConnection(DatabaseConfigure.DatabasePath, DatabaseConfigure.Flags);
 
-        private static readonly MauiItemDatabase dbInstance = new MauiItemDatabase();
+        private static readonly MauiItemDatabase itemDatabase = new MauiItemDatabase();
         static MauiItemDatabase()
         {
         }
         private MauiItemDatabase()
         {
-            if (Database is not null)
-                return;
-            Database = new SQLiteAsyncConnection(DatabaseConfigure.DatabasePath, DatabaseConfigure.Flags);
             var initDb = this.Init();
             initDb.RunSynchronously();
         }
-        public static MauiItemDatabase DbInstance
+        public static MauiItemDatabase ItemDatabase
         {
             get
             {
-                return dbInstance;
+                return itemDatabase;
+            }
+        }
+
+        public static SQLiteAsyncConnection DbInstance
+        {
+            get
+            {
+                return database;
             }
         }
 
         public async Task Init()
         {
-            var result = await Database.CreateTableAsync<Employee>();
+            var resultEmployee = await database.CreateTableAsync<Employee>();
+            var resultUserTable = await database.CreateTableAsync<UserTable>();
+            var resultSettingTable = await database.CreateTableAsync<SettingTable>();
         }
 
         //public MauiItemDatabase()

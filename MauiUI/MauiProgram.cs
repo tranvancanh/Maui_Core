@@ -3,12 +3,15 @@ using MauiUI.Controls;
 using MauiUI.Services;
 using MauiUI.ViewModels;
 using MauiUI.Views;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Maui.LifecycleEvents;
+using System.Reflection;
 
 namespace MauiUI
 {
     public static class MauiProgram
     {
+        public static IServiceProvider Services { get; private set; }
         public static MauiApp CreateMauiApp()
         {
             var builder = MauiApp.CreateBuilder();
@@ -69,6 +72,13 @@ namespace MauiUI
             builder.Services.AddSingleton<MauiUI.Services.INavigationService, MauiUI.Services.NavigationService>();
             builder.Services.AddTransient<MauiUI.Services.IPopupService, MauiUI.Services.PopupService>();
 
+            // add appsetting file
+            using var stream = Assembly.GetExecutingAssembly().GetManifestResourceStream("1.MauiUI.appsettings.json");
+            var config = new ConfigurationBuilder()
+                .AddJsonStream(stream)
+                .Build();
+            builder.Configuration.AddConfiguration(config);
+
             //#if DEBUG
             //    builder.Logging.AddDebug();
             //#endif
@@ -117,9 +127,12 @@ namespace MauiUI
                 }
             });
 
-            return builder.Build();
-        }
+            var app = builder.Build();
 
+            Services = app.Services;
+
+            return app;
+        }
 
         //public static MauiAppBuilder RegisterServices(this MauiAppBuilder mauiAppBuilder)
         //{
