@@ -5,37 +5,59 @@
              xmlns:viewmodel="clr-namespace:MauiUI.ViewModels"
              xmlns:models="clr-namespace:MauiUI.Models"
              x:DataType="viewmodel:EmployeesViewModel"
-             Title="Employee Lists Page">
+             Title="Employee Lists Page"
+             IsEnabled="{Binding IsEnabled}"
+             >
 
-    <FlexLayout Direction="Column">
-        <Frame Margin="0" Padding="0" FlexLayout.Basis="600">
-            <VerticalStackLayout Padding="10">
-                <Entry Placeholder="Employee ID" Text="{Binding Employee.EmployeeId}"/>
-                <Entry Placeholder="Name" Text="{Binding Employee.EmployeeName}"/>
-                <Entry Placeholder="Email" Text="{Binding Employee.Email}"/>
-                <HorizontalStackLayout>
-                    <Label Text="PartTimer" Margin="12"/>
-                    <Switch IsToggled="False"/>
-                </HorizontalStackLayout>
-                <Entry Placeholder="Employee ID" Text="{Binding Employee.IsPartTimer}"/>
-                <Button Text="Add Emplyee" Command="{Binding AddCommand}" Margin="10"/>
-            </VerticalStackLayout>
-        </Frame>
+    <ScrollView>
+        <Grid>
 
-        <ListView FlexLayout.Grow="1" ItemsSource="{Binding Employees}">
-            <ListView.Header>
-                <VerticalStackLayout BackgroundColor="#512DB4" Padding="5">
-                    <Label HorizontalOptions="Center" Text="Employees" TextColor="White" FontAttributes="Bold"/>
-                </VerticalStackLayout>
-            </ListView.Header>
+            <FlexLayout Direction="Column" Grid.Row="0">
+                <Frame Margin="0" Padding="0" FlexLayout.Basis="600">
+                    <VerticalStackLayout Padding="10">
+                        <Entry Placeholder="Employee ID" Text="{Binding Employee.EmployeeId}"/>
+                        <Entry Placeholder="Name" Text="{Binding Employee.EmployeeName}"/>
+                        <Entry Placeholder="Email" Text="{Binding Employee.Email}"/>
+                        <HorizontalStackLayout>
+                            <Label Text="PartTimer" Margin="12"/>
+                            <Switch IsToggled="False"/>
+                        </HorizontalStackLayout>
+                        <Entry Placeholder="Employee ID" Text="{Binding Employee.IsPartTimer}"/>
+                        <Button Text="Add Emplyee" Command="{Binding AddCommand}" Margin="10"/>
 
-            <ListView.ItemTemplate>
-                <DataTemplate x:DataType="{x:Type models:Employee}">
-                    <TextCell Text="{Binding EmployeeId}" Detail="{Binding EmployeeName}"/>
-                </DataTemplate>
-            </ListView.ItemTemplate>
-        </ListView>
-    </FlexLayout>
+                    </VerticalStackLayout>
+                </Frame>
+
+                <ListView FlexLayout.Grow="1" ItemsSource="{Binding Employees}">
+                    <ListView.Header>
+                        <VerticalStackLayout BackgroundColor="#512DB4" Padding="5">
+                            <Label HorizontalOptions="Center" Text="Employees" TextColor="White" FontAttributes="Bold"/>
+                        </VerticalStackLayout>
+                    </ListView.Header>
+
+                    <ListView.ItemTemplate>
+                        <DataTemplate x:DataType="{x:Type models:Employee}">
+                            <TextCell Text="{Binding EmployeeId}" Detail="{Binding EmployeeName}"/>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                </ListView>
+            </FlexLayout>
+
+            <StackLayout Grid.Row="1">
+                <Button Text="Click Btn 1" TextColor="White" Command="{Binding ClickBtn1Command}" Margin="10"/>
+                <Button Text="Click Btn 2" TextColor="Red" Command="{Binding ClickBtn2Command}" Margin="10"/>
+                <Button Text="Click Btn 3" TextColor="Green" Clicked="Button_Clicked_3" Margin="10"/>
+            </StackLayout>
+
+            <!-- Definimos '{Binding IsBusy}' no code-behind -->
+            <ActivityIndicator x:Name="activityIndicator1" 
+            IsRunning="{Binding IsBusy}"
+            IsVisible="{Binding IsBusy}"
+            AbsoluteLayout.LayoutFlags="All" AbsoluteLayout.LayoutBounds="0.5,0.5,0.1,0.1"
+                      VerticalOptions="Center" HorizontalOptions="Center" Color="BlueViolet" />
+        </Grid>
+    </ScrollView>
+  
 
     <!--<VerticalStackLayout>
         <Label 

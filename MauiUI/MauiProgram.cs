@@ -54,9 +54,11 @@ namespace MauiUI
             builder.Services.AddSingleton<IAppSettingService, AppSettingService>();
 
             // Add Views
+            //builder.Services.AddTransient<MainPage>();
             builder.Services.AddTransient<LoginPage>();
             builder.Services.AddTransient<AppSettingPage>();
             builder.Services.AddTransient<EmployeeListPage>();
+            builder.Services.AddTransient<LoadingPopup>();
 
             // Add View Models
             builder.Services.AddTransient<LoginViewModel>();
@@ -64,8 +66,8 @@ namespace MauiUI
             builder.Services.AddTransient<EmployeesViewModel>();
 
             // Add Services
-            builder.Services.AddSingleton<INavigationService, NavigationService>();
-
+            builder.Services.AddSingleton<MauiUI.Services.INavigationService, MauiUI.Services.NavigationService>();
+            builder.Services.AddTransient<MauiUI.Services.IPopupService, MauiUI.Services.PopupService>();
 
             //#if DEBUG
             //    builder.Logging.AddDebug();

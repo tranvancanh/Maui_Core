@@ -39,6 +39,14 @@ namespace MauiUI.Services
             throw new InvalidOperationException($"Unable to resolve type SecondPage");
         }
 
+        //public Task AddPopupPage()
+        //{
+        //    var page = _services.GetService<LoadingPopup>();
+        //    if (page is not null)
+        //        return Navigation.PushAsync(page, true);
+        //    throw new InvalidOperationException($"Unable to resolve type SecondPage");
+        //}
+
         public Task NavigateBack()
         {
             throw new NotImplementedException();
