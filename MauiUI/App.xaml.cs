@@ -1,6 +1,7 @@
-﻿using MauiUI.ViewModels;
+﻿using MauiUI.AppConfigure;
 using MauiUI.Views;
 using Microsoft.Maui.Platform;
+using System.Diagnostics;
 using System.Windows.Input;
 
 namespace MauiUI
@@ -37,11 +38,27 @@ namespace MauiUI
 
         }
 
-        private async Task NewInitApp()
+        protected override async void OnStart()
         {
-            await Task.CompletedTask;
-            //await Shell.Current.GoToAsync(nameof(NewNavigationPage));
-            return;
+            await InitializeDatabase();
+        }
+
+        private async Task InitializeDatabase()
+        {
+            try
+            {
+                // Set up your database context
+                var dbContext = new SqlLiteAccess<bool>();
+
+                // Ensure that the database is created and/or migrated to the latest version
+                await dbContext.InitDb();
+            }
+            catch (Exception ex)
+            {
+                // Handle any exceptions that occur during initialization
+                Debug.WriteLine("Error initializing database: " + ex.Message);
+                throw;
+            }
         }
     }
 }

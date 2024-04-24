@@ -1,14 +1,17 @@
 ﻿using MauiUI.AppConfigure;
+using MauiUI.Extensions;
 using MauiUI.Models;
 using Microsoft.Extensions.Configuration;
+using Newtonsoft.Json;
 using System.Diagnostics;
+using System.Text;
 
 namespace MauiUI.Services
 {
     public interface ICallApiService
     {
-        Task<string> GetAsync(string action, Dictionary<string, string> queryParams = null, string baseUrl = null);
-        Task<string> PostAsync(string action, string jsonData, string baseUrl = null);
+        Task<string> GetAsync(string action, Dictionary<string, string> queryParams = null, string baseUrl = null, CancellationToken cancellationToken = default);
+        Task<string> PostAsync(string action, object postContent, string baseUrl = null, CancellationToken cancellationToken = default);
     }
 
     public class CallApiService : ICallApiService
@@ -27,30 +30,90 @@ namespace MauiUI.Services
             _productionUrl = productionUrl;
         }
 
-        public async Task<string> GetAsync(string action, Dictionary<string, string> queryParams = null, string baseUrl = null)
+        public async Task<string> GetAsync(string action, Dictionary<string, string> queryParams = null, string baseUrl = null, CancellationToken cancellationToken = default)
         {
             var urlString = await this.BuildUrlWithQueryStringUsingUriBuilder(baseUrl, action, queryParams);
-            using (var httpClient = new HttpClient())
+            // Create an HttpClientHandler
+            // // Create an instance of HttpClient
+            HttpClientHandler insecureHandler = null;
+            HttpClient httpClient = null;
+#if DEBUG
+            insecureHandler = GetInsecureHandler();
+            httpClient = new HttpClient(insecureHandler);
+#else
+    httpClient = new HttpClient();
+#endif
+            try
             {
                 // Set default request headers
-                httpClient.DefaultRequestHeaders.Add("User-Agent", "My-App");
-                httpClient.DefaultRequestHeaders.Add("Accept", "application/json");
+                httpClient.AddRequestHeaders();
 
-                // Make a request
-                var response = await httpClient.GetAsync(urlString);
-                if (response.IsSuccessStatusCode)
-                {
-                    var content = await response.Content.ReadAsStringAsync();
-                    Debug.WriteLine(content);
-                }
+                // Make a GET request to an API endpoint
+                var registrationResponse = await httpClient.GetAsync(urlString, cancellationToken);
+                // Ensure the response is successful
+                registrationResponse.EnsureSuccessStatusCode();
+                // Output the response content
+                var responseContent = await registrationResponse.Content.ReadAsStringAsync();
+                Debug.WriteLine(responseContent);
+                return responseContent;
             }
-
-            return null;
+            catch( Exception ex)
+            {
+                // Handle other exceptions
+                Debug.WriteLine($"Error Url: urlString {Environment.NewLine} Message :{0} ", ex.Message);
+                throw;
+            }
+            finally
+            {
+                // Need to call dispose on the HttpClient and HttpClientHandler objects
+                // when done using them, so the app doesn't leak resources
+                insecureHandler?.Dispose();
+                httpClient?.Dispose();
+            }
         }
 
-        public Task<string> PostAsync(string action, string jsonData, string baseUrl = null)
+        public async Task<string> PostAsync(string action, object postContent, string baseUrl = null, CancellationToken cancellationToken = default)
         {
-            throw new NotImplementedException();
+            // Create an HttpClientHandler
+            // Create an HttpClient object
+            HttpClientHandler insecureHandler = null;
+            HttpClient httpClient = null;
+#if DEBUG
+            insecureHandler = GetInsecureHandler();
+            httpClient = new HttpClient(insecureHandler);
+#else
+    httpClient = new HttpClient();
+#endif
+            try
+            {
+                // Set default request headers
+                httpClient.AddRequestHeaders();
+
+                // Make a request
+                // Prepare the data to be sent in the request body
+                var jsonData = JsonConvert.SerializeObject(postContent); // JSON data
+                var content = new StringContent(jsonData, Encoding.UTF8, "application/json");
+                // Make a GET request to an API endpoint
+                var registrationResponse = await httpClient.PostAsync(baseUrl, content, cancellationToken);
+                // Ensure the response is successful
+                registrationResponse.EnsureSuccessStatusCode();
+                // Output the response content
+                var responseContent = await registrationResponse.Content.ReadAsStringAsync();
+                return responseContent;
+            }
+            catch(Exception ex)
+            {
+                // Handle other exceptions
+                Debug.WriteLine($"Error Url: urlString {Environment.NewLine} Message :{0} ", ex.Message);
+                throw;
+            }
+            finally
+            {
+                // Need to call dispose on the HttpClient and HttpClientHandler objects
+                // when done using them, so the app doesn't leak resources
+                insecureHandler?.Dispose();
+                httpClient?.Dispose();
+            }
         }
 
         private async Task<string> BuildUrlWithQueryStringUsingUriBuilder(string baseUrl, string action, Dictionary<string, string> queryParams)
@@ -73,11 +136,7 @@ namespace MauiUI.Services
                     baseUrl = settingTable.HandyApiUrl;
                 }
             }
-            else
-            {
-                urlString = baseUrl;
-            }
-            urlString = urlString + action;
+            urlString = baseUrl + action;
             // parameter render
             if (queryParams != null)
             {
@@ -89,5 +148,15 @@ namespace MauiUI.Services
             }
             return urlString;
         }
+
+        public static HttpClientHandler GetInsecureHandler()
+        {
+            var handler = new HttpClientHandler();
+            // Disabling SSL certificate validation (for testing purposes only, not recommended in production)
+            handler.ServerCertificateCustomValidationCallback = (sender, cert, chain, sslPolicyErrors) => true;
+            return handler;
+        }
+
+
     }
 }

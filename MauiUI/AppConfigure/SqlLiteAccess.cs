@@ -1,12 +1,20 @@
-﻿using Microsoft.Extensions.Configuration;
+﻿using MauiUI.Models;
 using SQLite;
 
 namespace MauiUI.AppConfigure
 {
     public class SqlLiteAccess<T> where T : new()
     {
-        private static readonly SQLiteAsyncConnection _database = MauiItemDatabase.DbInstance;
-       
+        private static readonly SQLiteAsyncConnection _database = new SQLiteAsyncConnection(DatabaseConfigure.DatabasePath, DatabaseConfigure.Flags);
+        public static readonly SQLiteAsyncConnection DbInstance = _database;
+
+        public async Task<bool> InitDb()
+        {
+            var resultEmployee = await _database.CreateTableAsync<Employee>();
+            var resultUserTable = await _database.CreateTableAsync<UserTable>();
+            var resultSettingTable = await _database.CreateTableAsync<SettingTable>();
+            return true;
+        }
 
         public static Task<List<T>> GetAsync()
         {

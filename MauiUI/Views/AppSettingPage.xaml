@@ -101,7 +101,8 @@
                         Background="{DynamicResource SecondaryButtonColor}" TextColor="{DynamicResource White}" HorizontalOptions="StartAndExpand" WidthRequest="140" HeightRequest="80" 
                         Command="{Binding BackCommand}"/>
                     <Button FontFamily="FontAwesome6Solid" Text="&#xe09a; 保存" 
-                        Background="{DynamicResource PrimaryButtonColor}" TextColor="{DynamicResource White}" HorizontalOptions="EndAndExpand" WidthRequest="140" HeightRequest="80" />
+                        Background="{DynamicResource PrimaryButtonColor}" TextColor="{DynamicResource White}" HorizontalOptions="EndAndExpand" WidthRequest="140" HeightRequest="80" 
+                        Command="{Binding RegisterCommand}"/>
                 </StackLayout>
             </StackLayout>
         </ScrollView>

@@ -4,6 +4,7 @@ using MauiUI.Services;
 using MauiUI.ViewModels;
 using MauiUI.Views;
 using Microsoft.Extensions.Configuration;
+using Microsoft.Maui.Controls.Compatibility.Hosting;
 using Microsoft.Maui.LifecycleEvents;
 using System.Reflection;
 
@@ -27,30 +28,12 @@ namespace MauiUI
                     fonts.AddFont("Font Awesome 6 Free-Regular-400.otf", "FontAwesome6Regular");
                     fonts.AddFont("Font Awesome 6 Free-Solid-900.otf", "FontAwesome6Solid");
 
-                    //fonts.AddFont("OpenSans-Regular.ttf", "OpenSansRegular");
-                    //fonts.AddFont("OpenSans-Semibold.ttf", "OpenSansSemibold");
-
                     //fonts.AddFont("MPLUSRounded1c-Regular.ttf", "Rounded Mplus 1c");
                     //fonts.AddFont("MPLUSRounded1c-Bold.ttf", "Rounded Mplus 1c Bold");
-                    //fonts.AddFont("Font Awesome 6 Free-Regular-400.otf", "FontAwesome6Regular");
-                    //fonts.AddFont("Font Awesome 6 Free-Solid-900.otf", "FontAwesome6Solid");
                     //fonts.AddFont("ZenKurenaido-Regular.ttf", "ZenKurenaidoRegular");
                     //fonts.AddFont("KiwiMaru-Regular.ttf", "KiwiMaruRegular");
-
-                    //fonts.AddFont("OpenSans-Regular.ttf", "OpenSansRegular");
-                    //fonts.AddFont("OpenSans-Semibold.ttf", "OpenSansSemibold");
-                })
-                //                                .ConfigureMauiHandlers((handlers) =>
-                //                                {
-                //#if ANDROID
-                //                                    handlers.AddHandler(typeof(MauiUI.Controls.CustomEntry_old), typeof(MauiUI.Platforms.Android.Renderers.CustomEntryMapper));
-                //#elif IOS
-                //                                //handlers.AddHandler(typeof(PressableView), typeof(XamarinCustomRenderer.iOS.Renderers.PressableViewRenderer));
-                //#endif
-                //                                })
-
-                ;
-
+                });
+            builder.AddAppSettings();
 
             builder.Services.AddSingleton<IAuthService, AuthService>();
             builder.Services.AddSingleton<IDataService, DataService>();
@@ -69,15 +52,11 @@ namespace MauiUI
             builder.Services.AddTransient<EmployeesViewModel>();
 
             // Add Services
+            builder.Services.AddSingleton<MauiUI.Services.IAuthService, MauiUI.Services.AuthService>();
+            builder.Services.AddSingleton<MauiUI.Services.IDataService, MauiUI.Services.DataService>();
+            builder.Services.AddTransient<MauiUI.Services.ICallApiService, MauiUI.Services.CallApiService>();
             builder.Services.AddSingleton<MauiUI.Services.INavigationService, MauiUI.Services.NavigationService>();
             builder.Services.AddTransient<MauiUI.Services.IPopupService, MauiUI.Services.PopupService>();
-
-            // add appsetting file
-            using var stream = Assembly.GetExecutingAssembly().GetManifestResourceStream("1.MauiUI.appsettings.json");
-            var config = new ConfigurationBuilder()
-                .AddJsonStream(stream)
-                .Build();
-            builder.Configuration.AddConfiguration(config);
 
             //#if DEBUG
             //    builder.Logging.AddDebug();
@@ -119,11 +98,16 @@ namespace MauiUI
 
             });
 
+            //CustomEntry entry
             Microsoft.Maui.Handlers.ElementHandler.ElementMapper.AppendToMapping("Classic", (handler, view) =>
             {
                 if (view is CustomEntry)
                 {
+#if __ANDROID__
                     MauiUI.Platforms.Android.Renderers.CustomEntryMapper.Map(handler, view);
+//#elif __IOS__
+//                    MauiUI.Platforms.iOS.Renderers.CustomEntryMapper.Map(handler, view);
+#endif
                 }
             });
 
@@ -132,6 +116,22 @@ namespace MauiUI
             Services = app.Services;
 
             return app;
+        }
+
+        private static void AddAppSettings(this MauiAppBuilder mauiAppBuilder)
+        {
+            // add appsetting file
+            using (var stream = Assembly.GetExecutingAssembly().GetManifestResourceStream("MauiUI.appsettings.json"))
+            {
+                if (stream != null)
+                {
+                    var config = new ConfigurationBuilder()
+                  .AddJsonStream(stream)
+                  .Build();
+                    mauiAppBuilder.Configuration.AddConfiguration(config);
+                }
+            }
+
         }
 
         //public static MauiAppBuilder RegisterServices(this MauiAppBuilder mauiAppBuilder)

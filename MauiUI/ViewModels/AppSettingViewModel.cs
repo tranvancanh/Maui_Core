@@ -1,9 +1,8 @@
-﻿using CommunityToolkit.Maui.Views;
-using CommunityToolkit.Mvvm.ComponentModel;
+﻿using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using MauiUI.Services;
-using MauiUI.Views;
 using System.Collections.ObjectModel;
+using System.Diagnostics;
 
 namespace MauiUI.ViewModels
 {
@@ -46,9 +45,14 @@ namespace MauiUI.ViewModels
         private readonly INavigationService _navigationService;
         private readonly IAuthService _authService;
         private readonly IAppSettingService _appSettingService;
+        private readonly ICallApiService _callApiService;
 
-        public AppSettingViewModel(IAuthService authService, IAppSettingService appSettingService, INavigationService navigationService) 
+        public AppSettingViewModel(IAuthService authService, 
+            IAppSettingService appSettingService, 
+            INavigationService navigationService,
+            ICallApiService callApiService) 
         {
+            _callApiService = callApiService;
             _authService = authService;
             _appSettingService = appSettingService;
             _navigationService = navigationService;
@@ -61,6 +65,23 @@ namespace MauiUI.ViewModels
             //Navigation.PushAsync(new NavigationPage(new EmployeeListPage()), true);
             await _navigationService.NavigateToSecondPage();
         }
+
+        [RelayCommand]
+        private async Task Register()
+        {
+            try
+            {
+                await _callApiService.GetAsync("Test");
+                //Navigation.PushAsync(new NavigationPage(new EmployeeListPage()), true);
+                //await _navigationService.NavigateToSecondPage();
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine("Error Message : " + ex.Message);
+                throw;
+            }
+        }
+        
 
         //public void customEtry_Focused()
         //{
