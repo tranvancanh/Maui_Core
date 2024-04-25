@@ -19,7 +19,7 @@ namespace MauiUI.Services
         private readonly string _testUrl;
         private readonly string _productionUrl;
 
-        IConfiguration _configuration;
+        private readonly IConfiguration _configuration;
         public CallApiService(IConfiguration configuration)
         {
             _configuration = configuration;

@@ -9,6 +9,7 @@ namespace MauiUI.Extensions
         public static void AddRequestHeaders(this HttpClient httpClient)
         {
             httpClient.DefaultRequestHeaders.Accept.Clear();
+            httpClient.DefaultRequestHeaders.Clear();
             var userInfor = GetuserInfor();
             if(userInfor != null)
             {

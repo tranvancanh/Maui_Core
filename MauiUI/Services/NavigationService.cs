@@ -5,8 +5,10 @@ namespace MauiUI.Services
 {
     public interface INavigationService
     {
+        Task NavigateToPage(Page page);
+        Task PreviousPageBack();
         Task NavigateToSecondPage();
-        Task NavigateBack();
+        Task NavigateToSettingPage();
     }
 
     public class NavigationService : INavigationService
@@ -31,25 +33,35 @@ namespace MauiUI.Services
         public NavigationService(IServiceProvider services)
             => _services = services;
 
-        public Task NavigateToSecondPage()
+        public Task NavigateToPage(Page page)
         {
-            var page = _services.GetService<EmployeeListPage>();
             if (page is not null)
                 return Navigation.PushAsync(page, true);
-            throw new InvalidOperationException($"Unable to resolve type SecondPage");
+            throw new InvalidOperationException($"Unable to resolve type Page");
         }
 
-        //public Task AddPopupPage()
-        //{
-        //    var page = _services.GetService<LoadingPopup>();
-        //    if (page is not null)
-        //        return Navigation.PushAsync(page, true);
-        //    throw new InvalidOperationException($"Unable to resolve type SecondPage");
-        //}
-
-        public Task NavigateBack()
+        public Task PreviousPageBack()
         {
-            throw new NotImplementedException();
+            return Navigation.PopAsync();
         }
+
+        public Task NavigateToSecondPage()
+        {
+            var page = _services.GetService<LoginPage>();
+            if (page is not null)
+                return Navigation.PopAsync();
+            //return Navigation.PushAsync(page, true);
+            throw new InvalidOperationException($"Unable to resolve type LoginPage");
+        }
+
+        public Task NavigateToSettingPage()
+        {
+            var page = _services.GetService<AppSettingPage>();
+            if (page is not null)
+                return Navigation.PushAsync(page, true);
+            throw new InvalidOperationException($"Unable to resolve type AppSettingPage");
+        }
+
+       
     }
 }

@@ -10,7 +10,7 @@ namespace MauiUI
     {
         public ICommand InitApp { get; set; }
 
-        public App(AppSettingPage appSystemSetting)
+        public App(LoginPage loginPage)
         {
             InitializeComponent();
 
@@ -32,7 +32,9 @@ namespace MauiUI
 
             //InitApp = new Command(async () => await NewInitApp());
 
-            MainPage = new NavigationPage(appSystemSetting);
+            MainPage = new NavigationPage(loginPage);
+            //MainPage = new NavigationPage(appSystemSetting);
+            //MainPage = loginPage;
             //MainPage = appSystemSetting;
             //MainPage = new EmployeeListPage();
 
@@ -47,11 +49,11 @@ namespace MauiUI
         {
             try
             {
-                // Set up your database context
-                var dbContext = new SqlLiteAccess<bool>();
+                // Set up your database
+                var dbInit = new SqlLiteAccess<bool>();
 
                 // Ensure that the database is created and/or migrated to the latest version
-                await dbContext.InitDb();
+                await dbInit.InitDb();
             }
             catch (Exception ex)
             {
