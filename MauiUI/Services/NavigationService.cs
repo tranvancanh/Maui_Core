@@ -6,7 +6,7 @@ namespace MauiUI.Services
     public interface INavigationService
     {
         Task NavigateToPage(Page page);
-        Task PreviousPageBack();
+        Task BackPreviousPage();
         Task NavigateToSecondPage();
         Task NavigateToSettingPage();
     }
@@ -40,7 +40,7 @@ namespace MauiUI.Services
             throw new InvalidOperationException($"Unable to resolve type Page");
         }
 
-        public Task PreviousPageBack()
+        public Task BackPreviousPage()
         {
             return Navigation.PopAsync();
         }

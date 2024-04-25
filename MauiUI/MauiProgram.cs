@@ -4,7 +4,6 @@ using MauiUI.Services;
 using MauiUI.ViewModels;
 using MauiUI.Views;
 using Microsoft.Extensions.Configuration;
-using Microsoft.Maui.Controls.Compatibility.Hosting;
 using Microsoft.Maui.LifecycleEvents;
 using System.Reflection;
 
@@ -120,8 +119,19 @@ namespace MauiUI
 
         private static void AddAppSettings(this MauiAppBuilder mauiAppBuilder)
         {
+            var environment = string.Empty;
+#if DEBUG
+            // Do something specific for debug mode
+            environment = "Development";
+#elif RELEASE
+            // Do something specific for release mode
+            environment = "Production";
+#else
+            throw new Exception("Environment is not support");
+#endif
+
             // add appsetting file
-            using (var stream = Assembly.GetExecutingAssembly().GetManifestResourceStream("MauiUI.appsettings.json"))
+            using (var stream = Assembly.GetExecutingAssembly().GetManifestResourceStream($"MauiUI.appsettings.{environment}.json"))
             {
                 if (stream != null)
                 {
@@ -129,6 +139,7 @@ namespace MauiUI
                   .AddJsonStream(stream)
                   .Build();
                     mauiAppBuilder.Configuration.AddConfiguration(config);
+                    
                 }
             }
 

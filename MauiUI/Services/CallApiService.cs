@@ -10,6 +10,7 @@ namespace MauiUI.Services
 {
     public interface ICallApiService
     {
+        Task<string> BaseUrlWhenNotSetting();
         Task<string> GetAsync(string action, Dictionary<string, string> queryParams = null, string baseUrl = null, CancellationToken cancellationToken = default);
         Task<string> PostAsync(string action, object postContent, string baseUrl = null, CancellationToken cancellationToken = default);
     }
@@ -23,7 +24,7 @@ namespace MauiUI.Services
         public CallApiService(IConfiguration configuration)
         {
             _configuration = configuration;
-            var settings = configuration.GetRequiredSection("connectionUrl");
+            var settings = configuration.GetRequiredSection("connectionUrlInit");
             var testUrl = settings.GetValue<string>("test");
             var productionUrl = settings.GetValue<string>("production");
             _testUrl = testUrl;
@@ -147,6 +148,25 @@ namespace MauiUI.Services
                 urlString = uriBuilder.Uri.AbsoluteUri;
             }
             return urlString;
+        }
+
+        public async Task<string> BaseUrlWhenNotSetting()
+        {
+            var baseUrl = string.Empty;
+            var settingTable = (await SqlLiteAccess<SettingTable>.GetAsync()).FirstOrDefault();
+            if (settingTable == null)
+            {
+#if DEBUG
+                baseUrl = _testUrl;
+#else
+                baseUrl = _productionUrl;
+#endif
+            }
+            else
+            {
+                baseUrl = settingTable.HandyApiUrl;
+            }
+            return baseUrl;
         }
 
         public static HttpClientHandler GetInsecureHandler()

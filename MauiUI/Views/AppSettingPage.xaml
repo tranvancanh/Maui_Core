@@ -1,13 +1,18 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
              x:Class="MauiUI.Views.AppSettingPage"
              xmlns:viewmodel="clr-namespace:MauiUI.ViewModels"
              xmlns:controls="clr-namespace:MauiUI.Controls" 
              x:DataType="viewmodel:AppSettingViewModel"
-             xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
              NavigationPage.HasNavigationBar="False"
              NavigationPage.HasBackButton="False">
+
+    <ContentPage.Behaviors>
+        <toolkit:EventToCommandBehavior Command="{Binding AppearingCommand}" EventName="Appearing" />
+        <toolkit:EventToCommandBehavior Command="{Binding DisappearingCommand}" EventName="Disappearing" />
+    </ContentPage.Behaviors>
 
     <StackLayout>
         <Frame CornerRadius="0" BorderColor="Transparent" Background="{DynamicResource FromBackColor}">
@@ -41,6 +46,13 @@
                                     Placeholder="Username"  MaxLength="10"/>
                             </Border>-->
 
+                            <StackLayout IsVisible="False">
+                                <controls:CustomEntry Text="{Binding CompanyId}" 
+                                    VerticalOptions="CenterAndExpand" Margin="10, 0, 10, 0" FontSize="15"
+                                    BorderColor="{DynamicResource BorderColor}"
+                                    BorderThickness="1" CornerRadius="10" Padding="10" MaxLength="10" >
+                                </controls:CustomEntry>
+                            </StackLayout>
                             <Label Text="会社コード" FontAttributes="Bold" Style="{StaticResource LabelTitleStyle}"/>
                             <StackLayout>
                                 <controls:CustomEntry x:Name="customEtry" Text="{Binding CompanyCode}" 
@@ -58,9 +70,15 @@
                                 </controls:CustomEntry>
                             </StackLayout>
 
+                            <StackLayout IsVisible="False">
+                                <controls:CustomEntry Text="{Binding HandyUserId}" 
+                                    VerticalOptions="CenterAndExpand" Margin="10, 0, 10, 0" FontSize="15"
+                                    BorderColor="{DynamicResource BorderColor}" BorderThickness="1" CornerRadius="10" Padding="10" MaxLength="10">
+                                </controls:CustomEntry>
+                            </StackLayout>
                             <Label Text="ログインID" FontAttributes="Bold" Style="{StaticResource LabelTitleStyle}"/>
                             <StackLayout>
-                                <controls:CustomEntry Text="{Binding LoginId}" 
+                                <controls:CustomEntry Text="{Binding HandyUserCode}" 
                                     VerticalOptions="CenterAndExpand" Margin="10, 0, 10, 0" FontSize="15"
                                     BorderColor="{DynamicResource BorderColor}" BorderThickness="1" CornerRadius="10" Padding="10" MaxLength="10">
                                 </controls:CustomEntry>
