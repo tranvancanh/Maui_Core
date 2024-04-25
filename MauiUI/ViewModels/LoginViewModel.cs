@@ -2,6 +2,7 @@
 using CommunityToolkit.Mvvm.Input;
 using MauiUI.Services;
 using MauiUI.Views;
+using System.Diagnostics;
 
 namespace MauiUI.ViewModels
 {
@@ -60,6 +61,7 @@ namespace MauiUI.ViewModels
 
         public async Task LoadLoginPageAsync()
         {
+            AppVersion = GetAppVersion();
             await Task.CompletedTask;
             return;
         }
@@ -79,5 +81,14 @@ namespace MauiUI.ViewModels
             return;
         }
 
+        private string GetAppVersion()
+        {
+            // appVersion and appBuild 
+            var appVersion = AppInfo.VersionString;
+            var appBuild = AppInfo.BuildString;
+            Debug.WriteLine($"Version: {appVersion}, Build: {appBuild}");
+
+            return appVersion;
+        }
     }
 }

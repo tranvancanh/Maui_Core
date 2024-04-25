@@ -10,6 +10,7 @@
         public int DepoID { get; set; }
         public string DepoCode { get; set; }
         public string DepoName { get; set; }
+        public string AppVersion { get; set; }
         public int AdministratorFlag { get; set; }
         public string TokenString { get; set; }
     }

@@ -21,6 +21,7 @@ namespace MauiUI.Extensions
                 httpClient.DefaultRequestHeaders.Add("DepoID", userInfor.DepoID);
                 httpClient.DefaultRequestHeaders.Add("DepoCode", userInfor.DepoCode);
                 httpClient.DefaultRequestHeaders.Add("DepoName", userInfor.DepoName);
+                httpClient.DefaultRequestHeaders.Add("AppVersion", userInfor.AppVersion);
                 httpClient.DefaultRequestHeaders.Add("AdministratorFlag", userInfor.AdministratorFlag);
                 httpClient.DefaultRequestHeaders.Add("HandyUserCode", userInfor.HandyUserCode);
                 httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", userInfor.TokenString);
@@ -29,7 +30,6 @@ namespace MauiUI.Extensions
             //httpClient.DefaultRequestHeaders.Add("Accept", "application/json");
 
         }
-
 
         private static dynamic GetuserInfor()
         {
@@ -50,11 +50,12 @@ namespace MauiUI.Extensions
                 DepoID = u.DepoID,
                 DepoCode = u.DepoCode,
                 DepoName = u.DepoName,
+                AppVersion = u.AppVersion,
                 AdministratorFlag = u.AdministratorFlag,
                 TokenString = u.TokenString
             }).FirstOrDefault();
 
             return resultQuery;
     }
-}
+    }
 }
