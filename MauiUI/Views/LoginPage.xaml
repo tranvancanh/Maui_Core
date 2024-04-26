@@ -15,14 +15,14 @@
 
     <ContentPage.Resources>
         <Style TargetType="Label">
-            <Setter Property="FontFamily" Value="Rounded Mplus 1c" />
+            <!--<Setter Property="FontFamily" Value="Rounded Mplus 1c" />-->
             <Setter Property="FontSize" Value="Small" />
         </Style>
         <Style TargetType="Frame">
             <Setter Property="HasShadow" Value="False" />
         </Style>
         <Style TargetType="Button">
-            <Setter Property="FontFamily" Value="Rounded Mplus 1c" />
+            <!--<Setter Property="FontFamily" Value="Rounded Mplus 1c" />-->
             <Setter Property="CornerRadius" Value="30" />
             <Setter Property="HeightRequest" Value="60" />
             <Setter Property="VerticalOptions" Value="Center"/>
@@ -36,9 +36,10 @@
         <Grid>
 
             <StackLayout IsVisible="True">
-                <StackLayout Margin="5" VerticalOptions="Start" BackgroundColor="{DynamicResource BackgroundColor}" >
+                <StackLayout Margin="5" VerticalOptions="Start" BackgroundColor="{DynamicResource BackgroundColor}">
                     <Button
                         Text="設定"
+                        FontFamily="Rounded Mplus 1c Bold" 
                         VerticalOptions="Center"
                         Command="{Binding SetUpCommand}"
                         TextColor="{DynamicResource PrimaryTextColor}"

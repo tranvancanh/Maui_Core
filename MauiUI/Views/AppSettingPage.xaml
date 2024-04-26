@@ -17,7 +17,7 @@
     <StackLayout>
         <Frame CornerRadius="0" BorderColor="Transparent" Background="{DynamicResource FromBackColor}">
             <StackLayout HorizontalOptions="Center">
-                <Label Text="ハンディ設定" FontSize="Large" />
+                <Label Text="ハンディ設定" FontSize="Large"  FontFamily="Rounded Mplus 1c Bold" />
             </StackLayout>
         </Frame>
         

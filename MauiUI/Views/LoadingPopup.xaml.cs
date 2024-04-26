@@ -8,4 +8,10 @@ public partial class LoadingPopup : Popup
 	{
 		InitializeComponent();
 	}
+
+    public LoadingPopup(string displayText)
+    {
+        InitializeComponent();
+        DisplayText.Text = displayText;
+    }
 }

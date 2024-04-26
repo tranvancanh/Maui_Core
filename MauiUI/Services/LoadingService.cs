@@ -2,14 +2,14 @@
 
 namespace MauiUI.Services
 {
-    public interface IPopupService
+    public interface ILoadingService
     {
         void Init(Page page);
         void ClosePopup(Popup popup);
         void ShowPopup(Popup popup);
     }
 
-    public class PopupService : IPopupService
+    public class LoadingService : ILoadingService
     {
         Page page { get; set; }
 

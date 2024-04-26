@@ -26,9 +26,8 @@ namespace MauiUI
                     fonts.AddFont("OpenSans-Semibold.ttf", "OpenSansSemibold");
                     fonts.AddFont("Font Awesome 6 Free-Regular-400.otf", "FontAwesome6Regular");
                     fonts.AddFont("Font Awesome 6 Free-Solid-900.otf", "FontAwesome6Solid");
-
-                    //fonts.AddFont("MPLUSRounded1c-Regular.ttf", "Rounded Mplus 1c");
-                    //fonts.AddFont("MPLUSRounded1c-Bold.ttf", "Rounded Mplus 1c Bold");
+                    fonts.AddFont("MPLUSRounded1c-Regular.ttf", "Rounded Mplus 1c");
+                    fonts.AddFont("MPLUSRounded1c-Bold.ttf", "Rounded Mplus 1c Bold");
                     //fonts.AddFont("ZenKurenaido-Regular.ttf", "ZenKurenaidoRegular");
                     //fonts.AddFont("KiwiMaru-Regular.ttf", "KiwiMaruRegular");
                 });
@@ -55,7 +54,7 @@ namespace MauiUI
             builder.Services.AddSingleton<MauiUI.Services.IDataService, MauiUI.Services.DataService>();
             builder.Services.AddTransient<MauiUI.Services.ICallApiService, MauiUI.Services.CallApiService>();
             builder.Services.AddSingleton<MauiUI.Services.INavigationService, MauiUI.Services.NavigationService>();
-            builder.Services.AddTransient<MauiUI.Services.IPopupService, MauiUI.Services.PopupService>();
+            builder.Services.AddTransient<MauiUI.Services.ILoadingService, MauiUI.Services.LoadingService>();
 
             //#if DEBUG
             //    builder.Logging.AddDebug();

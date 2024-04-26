@@ -73,6 +73,8 @@
 	  <None Remove="appsettings.Production.json" />
 	  <None Remove="Resources\Fonts\Font Awesome 6 Free-Regular-400.otf" />
 	  <None Remove="Resources\Fonts\Font Awesome 6 Free-Solid-900.otf" />
+	  <None Remove="Resources\Fonts\MPLUSRounded1c-Bold.ttf" />
+	  <None Remove="Resources\Fonts\MPLUSRounded1c-Regular.ttf" />
 	  <None Remove="Resources\Images\login_img.png" />
 	</ItemGroup>
 
@@ -116,9 +118,6 @@
 	  <Compile Update="Views\AppSettingPage.xaml.cs">
 	    <DependentUpon>AppSettingPage.xaml</DependentUpon>
 	  </Compile>
-	  <Compile Update="Views\HomePage.xaml.cs">
-	    <DependentUpon>HomePage.xaml</DependentUpon>
-	  </Compile>
 	  <Compile Update="Views\LoadingPopup.xaml.cs">
 	    <DependentUpon>LoadingPopup.xaml</DependentUpon>
 	  </Compile>
@@ -129,12 +128,6 @@
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	  <MauiXaml Update="Views\EmployeeListPage.xaml">
-	    <Generator>MSBuild:Compile</Generator>
-	  </MauiXaml>
-	  <MauiXaml Update="Views\FirstPage.xaml">
-	    <Generator>MSBuild:Compile</Generator>
-	  </MauiXaml>
-	  <MauiXaml Update="Views\HomePage.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	  <MauiXaml Update="Views\LoginPage.xaml">

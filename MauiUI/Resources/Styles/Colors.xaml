@@ -50,6 +50,7 @@
 
     <Color x:Key="MainColor">Teal</Color>
     <Color x:Key="BackgroundColor">WhiteSmoke</Color>
+    <Color x:Key="BackgroundColor2">#DEDEDE</Color>
 
     <Color x:Key="LabelBackgroundColor">White</Color>
 

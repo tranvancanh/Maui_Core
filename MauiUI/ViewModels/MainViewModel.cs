@@ -25,7 +25,8 @@ namespace MauiUI.ViewModels
         [RelayCommand]
         private async Task GotoEmployeeListPage()
         {
-            await Shell.Current.GoToAsync($"{ nameof(HomePage)}?EmployeeId={Count}");
+            //await Shell.Current.GoToAsync($"{ nameof(HomePage)}?EmployeeId={Count}");
+            await Task.CompletedTask;
         }
 
 

@@ -3,8 +3,10 @@ using CommunityToolkit.Mvvm.Input;
 using MauiUI.AppConfigure;
 using MauiUI.Models;
 using MauiUI.Services;
+using MauiUI.Views;
 using System.Collections.ObjectModel;
 using System.Diagnostics;
+using System.Runtime.CompilerServices;
 
 namespace MauiUI.ViewModels
 {
@@ -52,16 +54,19 @@ namespace MauiUI.ViewModels
         private readonly IAuthService _authService;
         private readonly IAppSettingService _appSettingService;
         private readonly ICallApiService _callApiService;
+        private readonly MauiUI.Services.ILoadingService _loadingService;
 
         public AppSettingViewModel(IAuthService authService, 
             IAppSettingService appSettingService, 
             INavigationService navigationService,
-            ICallApiService callApiService) 
+            ICallApiService callApiService,
+            MauiUI.Services.ILoadingService loadingService) 
         {
             _callApiService = callApiService;
             _authService = authService;
             _appSettingService = appSettingService;
             _navigationService = navigationService;
+            _loadingService = loadingService;
             PageTitle = "アプリ設定";
         }
 
@@ -121,9 +126,12 @@ namespace MauiUI.ViewModels
         [RelayCommand]
         private async Task Register()
         {
+            var loading = new LoadingPopup();
             try
             {
+                _loadingService.ShowPopup(loading);
                 var content = await _callApiService.GetAsync("Test");
+                await Task.Delay(5000);
                 //Navigation.PushAsync(new NavigationPage(new EmployeeListPage()), true);
                 //await _navigationService.NavigateToSecondPage();
             }
@@ -131,6 +139,10 @@ namespace MauiUI.ViewModels
             {
                 Debug.WriteLine("Error Message : " + ex.Message);
                 throw;
+            }
+            finally
+            {
+                _loadingService.ClosePopup(loading);
             }
         }
 

@@ -10,7 +10,7 @@
 
     <VerticalStackLayout Background="White">
         <ActivityIndicator IsRunning="True" />
-        <Label Text="Loading..." />
+        <Label x:Name="DisplayText" Text="Loading..." />
     </VerticalStackLayout>
 
 </toolkit:Popup>

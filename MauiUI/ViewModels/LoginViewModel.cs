@@ -78,6 +78,7 @@ namespace MauiUI.ViewModels
         {
             var page = _services.GetService<AppSettingPage>();
             await _navigationService.NavigateToPage(page);
+            //Application.Current.MainPage = new SeteiPage();
             return;
         }
 

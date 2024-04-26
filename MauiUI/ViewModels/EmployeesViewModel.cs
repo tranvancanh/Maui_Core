@@ -22,12 +22,12 @@ namespace MauiUI.ViewModels
         [ObservableProperty]
         private bool isEnabled = true;
 
-        private readonly MauiUI.Services.IPopupService _popupService;
+        private readonly MauiUI.Services.ILoadingService _loadingService;
         private Page page;
 
-        public EmployeesViewModel(MauiUI.Services.IPopupService popupService)
+        public EmployeesViewModel(MauiUI.Services.ILoadingService loadingService)
         {
-            _popupService = popupService;
+            _loadingService = loadingService;
         }
 
         [RelayCommand]
@@ -41,10 +41,10 @@ namespace MauiUI.ViewModels
         [RelayCommand]
         private async Task ClickBtn1()
         {
-            var loading = new LoadingPopup();
+            var loading = new LoadingPopup("12345667");
             try
             {
-                _popupService.ShowPopup(loading);
+                _loadingService.ShowPopup(loading);
                 await Task.Delay(10000);
             }
             catch (Exception ex)
@@ -54,7 +54,7 @@ namespace MauiUI.ViewModels
             }
             finally
             {
-                _popupService.ClosePopup(loading);
+                _loadingService.ClosePopup(loading);
             }
 
 
