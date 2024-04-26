@@ -1,5 +1,6 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
+using FluentValidation;
 using MauiUI.AppConfigure;
 using MauiUI.Models;
 using MauiUI.Services;
@@ -31,6 +32,8 @@ namespace MauiUI.ViewModels
         [ObservableProperty]
         private string selectedScanErrorSound;
 
+        public List<string> AppSettingError = new List<string>();
+
         [ObservableProperty]
         private ObservableCollection<List<string>> scanModes = new ObservableCollection<List<string>>();
 
@@ -55,6 +58,7 @@ namespace MauiUI.ViewModels
         private readonly IAppSettingService _appSettingService;
         private readonly ICallApiService _callApiService;
         private readonly MauiUI.Services.ILoadingService _loadingService;
+        AppSettingPageValidation _validationRules;
 
         public AppSettingViewModel(IAuthService authService, 
             IAppSettingService appSettingService, 
@@ -67,6 +71,7 @@ namespace MauiUI.ViewModels
             _appSettingService = appSettingService;
             _navigationService = navigationService;
             _loadingService = loadingService;
+            _validationRules = new AppSettingPageValidation();
             PageTitle = "アプリ設定";
         }
 
@@ -130,8 +135,19 @@ namespace MauiUI.ViewModels
             try
             {
                 _loadingService.ShowPopup(loading);
-                var content = await _callApiService.GetAsync("Test");
                 await Task.Delay(5000);
+
+                var result = _validationRules.Validate(this);
+                if (result.IsValid)
+                    AppSettingError = new List<string>();
+                else
+                {
+                    var errors = result.Errors.Select(e => e.ErrorMessage).ToList();
+                    await App.Current.MainPage.DisplayAlert("Alert", string.Join(Environment.NewLine, errors), "OK");
+                    return;
+                }
+               
+                var content = await _callApiService.GetAsync("Test");
                 //Navigation.PushAsync(new NavigationPage(new EmployeeListPage()), true);
                 //await _navigationService.NavigateToSecondPage();
             }
@@ -147,4 +163,19 @@ namespace MauiUI.ViewModels
         }
 
     }
+
+    public class AppSettingPageValidation : AbstractValidator<AppSettingViewModel>
+    {
+        public AppSettingPageValidation()
+        {
+            RuleFor(x => x.UrlConnect).NotEmpty().WithMessage("UrlConnect is Missing");
+            RuleFor(x => x.CompanyCode).NotEmpty().WithMessage("CompanyCode is Missing");
+            RuleFor(x => x.CompanyPassword).NotEmpty().WithMessage("UrlConnect is Missing");
+            RuleFor(x => x.HandyUserId).NotEmpty().WithMessage("HandyUserId is Missing");
+            RuleFor(x => x.HandyUserCode).NotEmpty().WithMessage("HandyUserCode is Missing");
+        }
+
+       
+    }
+    
 }
