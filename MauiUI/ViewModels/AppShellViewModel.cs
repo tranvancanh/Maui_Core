@@ -1,7 +1,6 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using MauiUI.Models;
-using MauiUI.Services;
 using MauiUI.Views;
 using System.Collections.ObjectModel;
 using System.Diagnostics;
@@ -68,13 +67,19 @@ namespace MauiUI.ViewModels
         public AppShellViewModel(IServiceProvider serviceProvider)
         {
             LoginDataViewText = "ログイン情報";
-            SignOutText = "サインアウト";
+            SignOutText = "\uf2f5 ログアウト";
             CompanyCodeText = "会社コード";
+            CompanyCode = "CompanyCode";
             CompanyNameText = "会社名";
+            CompanyName = "CompanyName";
             DepoCodeText = "デポコード";
+            DepoCode = 10;
             DepoNameText = "デポ名称";
+            DepoName = "DepoName";
             UserCodeText = "ユーザーコード";
+            UserCode = "UserCode";
             UserNameText = "ユーザー名";
+            UserName = "UserName";
             DropText = "\uf078";
             UserDialogIsVisible = false;
 
@@ -127,36 +132,19 @@ namespace MauiUI.ViewModels
         [RelayCommand]
         private async Task SignOut()
         {
-            //if (Preferences.ContainsKey(nameof(App.UserDetails)))
-            //{
-            //    Preferences.Remove(nameof(App.UserDetails));
-            //}
-
             //var loginPage = new LoginPage(new LoginViewModel(_authService, _navigationService, _callApiService, _serviceProvider));
             var page = _serviceProvider.GetService<LoginPage>();
-
             Application.Current.MainPage = new NavigationPage(page);
 
             //Application.Current.MainPage = page;
-
             //await Shell.Current.GoToAsync($"{nameof(loginPage)}");
-
             //await _navigationService.NavigateToPage(page);
-
             //await Shell.Current.GoToAsync($"//{nameof(LoginPage)}");
-
             //MainPage = new NavigationPage();
             //Application.Current.MainPage = new LoginPage(new LoginViewModel(_authService, _navigationService, _callApiService, _serviceProvider));
             //await Shell.Current.GoToAsync($"//{nameof(LoginPage)}");
             await Task.CompletedTask;
         }
-
-        //[ObservableProperty]
-        //private FlyoutItem flyoutItems = new();
-
-
-
-
 
     }
 

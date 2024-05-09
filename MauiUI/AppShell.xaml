@@ -20,7 +20,27 @@
         ContentTemplate="{DataTemplate local:MainPage}"
         Route="MainPage" />-->
 
-
+    <Shell.Resources>
+        <Style TargetType="Label" x:Key="TitleLabel" >
+            <Setter Property="FontFamily" Value="Rounded Mplus 1c" />
+            <Setter Property="TextColor" Value="{DynamicResource Black}" />
+            <Setter Property="BackgroundColor" Value="{DynamicResource FromBackColor}" />
+            <Setter Property="FontSize" Value="Small" />
+            <Setter Property="HorizontalOptions" Value="FillAndExpand" />
+            <Setter Property="HorizontalTextAlignment" Value="Start" />
+            <Setter Property="Padding" Value="10,10,0,10" />
+        </Style>
+        <Style TargetType="Label" x:Key="DataLabel" >
+            <Setter Property="FontFamily" Value="Rounded Mplus 1c" />
+            <Setter Property="TextColor" Value="{DynamicResource Black}" />
+            <Setter Property="BackgroundColor" Value="{DynamicResource FromBackColor}" />
+            <Setter Property="FontSize" Value="Small" />
+            <Setter Property="HorizontalOptions" Value="FillAndExpand" />
+            <Setter Property="HorizontalTextAlignment" Value="End" />
+            <Setter Property="LineBreakMode" Value="TailTruncation" />
+            <Setter Property="Padding" Value="0,10,10,10" />
+        </Style>
+    </Shell.Resources>
 
     <FlyoutItem Title="Home Page" Icon="dotnet_bot.svg" FlyoutItemIsVisible="False">
         <Tab>
@@ -28,7 +48,7 @@
         </Tab>
     </FlyoutItem>
 
-    <FlyoutItem Title="Setting Page" Icon="team.svg" FlyoutItemIsVisible="True">
+    <FlyoutItem Title="Setting Page" Icon="dotnet_bot.svg" FlyoutItemIsVisible="True">
         <Tab>
             <ShellContent ContentTemplate="{DataTemplate views:SettingPage}" />
         </Tab>
@@ -37,7 +57,7 @@
 
     <Shell.FlyoutHeader>
 
-        <StackLayout BackgroundColor="White">
+        <StackLayout BackgroundColor="{DynamicResource TextBoxBackColor}">
             <Image Aspect="AspectFill"
              Source="dotnet_bot.png"
              Opacity="1.0"
@@ -65,11 +85,11 @@
                 </Label>
             </StackLayout>
 
-            <StackLayout HorizontalOptions="Fill" IsVisible="{Binding UserDialogIsVisible}">
-                <Grid RowSpacing="1">
+            <StackLayout HorizontalOptions="Fill" IsVisible="{Binding UserDialogIsVisible}" >
+                <Grid RowSpacing="1" ColumnSpacing="1" >
                     <Grid.RowDefinitions>
                         <RowDefinition Height="Auto" />
-                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto" />
                         <RowDefinition Height="Auto" />
                         <RowDefinition Height="Auto" />
                         <RowDefinition Height="Auto" />
@@ -80,18 +100,35 @@
                         <ColumnDefinition />
                     </Grid.ColumnDefinitions>
 
-                    <Label Grid.Row="0" Grid.Column="0" Text="{Binding CompanyCodeText}" FontSize="Medium" HorizontalOptions="Start" VerticalOptions="Center" Padding="5, 5"/>
-                    <Label Grid.Row="0" Grid.Column="1" Text="{Binding CompanyCode}" FontSize="Medium" HorizontalOptions="EndAndExpand" VerticalOptions="Center" Padding="5, 5"/>
-                    <Label Grid.Row="1" Grid.Column="0" Text="{Binding CompanyNameText}" FontSize="Medium" HorizontalOptions="Start" VerticalOptions="Center" Padding="5, 5"/>
-                    <Label Grid.Row="1" Grid.Column="1" Text="{Binding CompanyName}" FontSize="Medium" HorizontalOptions="EndAndExpand" VerticalOptions="Center" Padding="5, 5"/>
-                    <Label Grid.Row="2" Grid.Column="0" Text="{Binding DepoCodeText}" FontSize="Medium" HorizontalOptions="Start" VerticalOptions="Center" Padding="5, 5"/>
-                    <Label Grid.Row="2" Grid.Column="1" Text="{Binding DepoCode}" FontSize="Medium" HorizontalOptions="EndAndExpand" VerticalOptions="Center" Padding="5, 5"/>
-                    <Label Grid.Row="3" Grid.Column="0" Text="{Binding DepoNameText}" FontSize="Medium" HorizontalOptions="Start" VerticalOptions="Center" Padding="5, 5"/>
-                    <Label Grid.Row="3" Grid.Column="1" Text="{Binding DepoName}" FontSize="Medium" HorizontalOptions="EndAndExpand" VerticalOptions="Center" Padding="5, 5"/>
-                    <Label Grid.Row="4" Grid.Column="0" Text="{Binding UserCodeText}" FontSize="Medium" HorizontalOptions="Start" VerticalOptions="Center" Padding="5, 5"/>
-                    <Label Grid.Row="4" Grid.Column="1" Text="{Binding UserCode}" FontSize="Medium" HorizontalOptions="EndAndExpand" VerticalOptions="Center" Padding="5, 5"/>
-                    <Label Grid.Row="5" Grid.Column="0" Text="{Binding UserNameText}" FontSize="Medium" HorizontalOptions="Start" VerticalOptions="Center" Padding="5, 5"/>
-                    <Label Grid.Row="5" Grid.Column="1" Text="{Binding UserName}" FontSize="Medium" HorizontalOptions="EndAndExpand" VerticalOptions="Center" Padding="5, 5"/>
+                    <BoxView Grid.Row="0" Grid.Column="0" Color="{DynamicResource FromBackColor}" />
+                    <BoxView Grid.Row="0" Grid.Column="1" Color="{DynamicResource FromBackColor}" />
+                    <Label Grid.Row="0" Grid.Column="0" Text="{Binding CompanyCodeText}" FontSize="Medium" Style="{StaticResource TitleLabel}" HorizontalOptions="Start" VerticalOptions="Center" Padding="5, 5"/>
+                    <Label Grid.Row="0" Grid.Column="1" Text="{Binding CompanyCode}" FontSize="Medium" Style="{StaticResource DataLabel}" HorizontalOptions="End" VerticalOptions="Center" Padding="5, 5"/>
+
+                    <BoxView Grid.Row="1" Grid.Column="0" Color="{DynamicResource FromBackColor}" />
+                    <BoxView Grid.Row="1" Grid.Column="1" Color="{DynamicResource FromBackColor}" />
+                    <Label Grid.Row="1" Grid.Column="0" Text="{Binding CompanyNameText}" FontSize="Medium" Style="{StaticResource TitleLabel}" HorizontalOptions="Start" VerticalOptions="Center" Padding="5, 5"/>
+                    <Label Grid.Row="1" Grid.Column="1" Text="{Binding CompanyName}" FontSize="Medium" Style="{StaticResource DataLabel}" HorizontalOptions="EndAndExpand" VerticalOptions="Center" Padding="5, 5"/>
+
+                    <BoxView Grid.Row="2" Grid.Column="0" Color="{DynamicResource FromBackColor}" />
+                    <BoxView Grid.Row="2" Grid.Column="1" Color="{DynamicResource FromBackColor}" />
+                    <Label Grid.Row="2" Grid.Column="0" Text="{Binding DepoCodeText}" FontSize="Medium" Style="{StaticResource TitleLabel}" HorizontalOptions="Start" VerticalOptions="Center" Padding="5, 5"/>
+                    <Label Grid.Row="2" Grid.Column="1" Text="{Binding DepoCode}" FontSize="Medium" Style="{StaticResource DataLabel}" HorizontalOptions="EndAndExpand" VerticalOptions="Center" Padding="5, 5"/>
+
+                    <BoxView Grid.Row="3" Grid.Column="0" Color="{DynamicResource FromBackColor}" />
+                    <BoxView Grid.Row="3" Grid.Column="1" Color="{DynamicResource FromBackColor}" />
+                    <Label Grid.Row="3" Grid.Column="0" Text="{Binding DepoNameText}" FontSize="Medium" Style="{StaticResource TitleLabel}" HorizontalOptions="Start" VerticalOptions="Center" Padding="5, 5"/>
+                    <Label Grid.Row="3" Grid.Column="1" Text="{Binding DepoName}" FontSize="Medium" Style="{StaticResource DataLabel}" HorizontalOptions="EndAndExpand" VerticalOptions="Center" Padding="5, 5"/>
+
+                    <BoxView Grid.Row="4" Grid.Column="0" Color="{DynamicResource FromBackColor}" />
+                    <BoxView Grid.Row="4" Grid.Column="1" Color="{DynamicResource FromBackColor}" />
+                    <Label Grid.Row="4" Grid.Column="0" Text="{Binding UserCodeText}" FontSize="Medium" Style="{StaticResource TitleLabel}" HorizontalOptions="Start" VerticalOptions="Center" Padding="5, 5"/>
+                    <Label Grid.Row="4" Grid.Column="1" Text="{Binding UserCode}" FontSize="Medium" Style="{StaticResource DataLabel}" HorizontalOptions="EndAndExpand" VerticalOptions="Center" Padding="5, 5"/>
+
+                    <BoxView Grid.Row="5" Grid.Column="0" Color="{DynamicResource FromBackColor}" />
+                    <BoxView Grid.Row="5" Grid.Column="1" Color="{DynamicResource FromBackColor}" />
+                    <Label Grid.Row="5" Grid.Column="0" Text="{Binding UserNameText}" FontSize="Medium" Style="{StaticResource TitleLabel}" HorizontalOptions="Start" VerticalOptions="Center" Padding="5, 5"/>
+                    <Label Grid.Row="5" Grid.Column="1" Text="{Binding UserName}" FontSize="Medium" Style="{StaticResource DataLabel}" HorizontalOptions="EndAndExpand" VerticalOptions="Center" Padding="5, 5"/>
                 </Grid>
             </StackLayout>
 
@@ -106,8 +143,8 @@
 
     <Shell.FlyoutFooter>
         <VerticalStackLayout Margin="5">
-            <Button Text="{Binding SignOutText}" Command="{Binding SignOutCommand}" />
-            <Label HorizontalTextAlignment="Start" Padding="5" Margin="0, 5" Text="App Maui Ver 1.0" FontSize="15"/>
+            <Button FontFamily="FontAwesome6Solid" Text="{Binding SignOutText}" Command="{Binding SignOutCommand}" />
+            <Label HorizontalTextAlignment="Center" Padding="5" Margin="0, 5" Text="App Maui Ver 1.0" FontSize="15"/>
         </VerticalStackLayout>
     </Shell.FlyoutFooter>
 

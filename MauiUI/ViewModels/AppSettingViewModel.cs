@@ -7,7 +7,6 @@ using MauiUI.Services;
 using MauiUI.Views;
 using System.Collections.ObjectModel;
 using System.Diagnostics;
-using System.Runtime.CompilerServices;
 
 namespace MauiUI.ViewModels
 {
@@ -126,8 +125,8 @@ namespace MauiUI.ViewModels
         {
             try
             {
-
                 // DoSomething
+
                 await Task.CompletedTask;
             }
             catch (Exception ex)
@@ -164,6 +163,16 @@ namespace MauiUI.ViewModels
                 }
                
                 var content = await _callApiService.GetAsync("Test");
+                if (!string.IsNullOrWhiteSpace(content))
+                {
+                    await App.Current.MainPage.DisplayAlert("Alert", "登録が完了しました", "OK");
+                    await _navigationService.BackPreviousPage();
+                    return;
+                }
+                else
+                {
+                    await App.Current.MainPage.DisplayAlert("Error", "登録に失敗しました", "OK");
+                }
                 //Navigation.PushAsync(new NavigationPage(new EmployeeListPage()), true);
                 //await _navigationService.NavigateToSecondPage();
             }
@@ -186,8 +195,8 @@ namespace MauiUI.ViewModels
         {
             RuleFor(x => x.UrlConnect).NotEmpty().WithMessage("UrlConnect is Missing");
             RuleFor(x => x.CompanyCode).NotEmpty().WithMessage("CompanyCode is Missing");
-            RuleFor(x => x.CompanyPassword).NotEmpty().WithMessage("UrlConnect is Missing");
-            RuleFor(x => x.HandyUserId).NotEmpty().WithMessage("HandyUserId is Missing");
+            RuleFor(x => x.CompanyPassword).NotEmpty().WithMessage("CompanyPassword is Missing");
+            //RuleFor(x => x.HandyUserId).NotEmpty().WithMessage("HandyUserId is Missing");
             RuleFor(x => x.HandyUserCode).NotEmpty().WithMessage("HandyUserCode is Missing");
         }
 
