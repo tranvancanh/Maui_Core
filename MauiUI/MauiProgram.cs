@@ -28,8 +28,8 @@ namespace MauiUI
                     fonts.AddFont("Font Awesome 6 Free-Solid-900.otf", "FontAwesome6Solid");
                     fonts.AddFont("MPLUSRounded1c-Regular.ttf", "Rounded Mplus 1c");
                     fonts.AddFont("MPLUSRounded1c-Bold.ttf", "Rounded Mplus 1c Bold");
-                    //fonts.AddFont("ZenKurenaido-Regular.ttf", "ZenKurenaidoRegular");
-                    //fonts.AddFont("KiwiMaru-Regular.ttf", "KiwiMaruRegular");
+                    fonts.AddFont("ZenKurenaido-Regular.ttf", "ZenKurenaidoRegular");
+                    fonts.AddFont("KiwiMaru-Regular.ttf", "KiwiMaruRegular");
                 });
             builder.AddAppSettings();
 
@@ -38,13 +38,14 @@ namespace MauiUI
             builder.Services.AddSingleton<IAppSettingService, AppSettingService>();
 
             // Add Views
-            //builder.Services.AddTransient<MainPage>();
+            builder.Services.AddTransient<AppShell>();
             builder.Services.AddTransient<LoginPage>();
             builder.Services.AddTransient<AppSettingPage>();
             builder.Services.AddTransient<EmployeeListPage>();
             builder.Services.AddTransient<LoadingPopup>();
 
             // Add View Models
+            builder.Services.AddTransient<AppShellViewModel>();
             builder.Services.AddTransient<LoginViewModel>();
             builder.Services.AddTransient<AppSettingViewModel>();
             builder.Services.AddTransient<EmployeesViewModel>();

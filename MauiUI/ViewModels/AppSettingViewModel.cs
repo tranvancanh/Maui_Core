@@ -122,6 +122,22 @@ namespace MauiUI.ViewModels
         }
 
         [RelayCommand]
+        private async Task Loaded()
+        {
+            try
+            {
+
+                // DoSomething
+                await Task.CompletedTask;
+            }
+            catch (Exception ex)
+            {
+                System.Diagnostics.Debug.WriteLine(ex.ToString());
+                throw;
+            }
+        }
+
+        [RelayCommand]
         private async Task Back()
         {
             await _navigationService.BackPreviousPage();

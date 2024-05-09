@@ -4,10 +4,11 @@ namespace MauiUI
 {
     public partial class AppShell : Shell
     {
-        public AppShell()
+        readonly AppShellViewModel _appShellViewModel;
+        public AppShell(IServiceProvider serviceProvider)
         {
             InitializeComponent();
-            BindingContext = new AppShellViewModel();
+            BindingContext = _appShellViewModel = new AppShellViewModel(serviceProvider);
         }
     }
 }

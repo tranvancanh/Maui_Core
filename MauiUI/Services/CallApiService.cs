@@ -50,13 +50,15 @@ namespace MauiUI.Services
                 httpClient.AddRequestHeaders();
 
                 // Make a GET request to an API endpoint
-                var registrationResponse = await httpClient.GetAsync(urlString, cancellationToken);
-                // Ensure the response is successful
-                registrationResponse.EnsureSuccessStatusCode();
-                // Output the response content
-                var responseContent = await registrationResponse.Content.ReadAsStringAsync();
-                Debug.WriteLine(responseContent);
-                return responseContent;
+                using (var registrationResponse = await httpClient.GetAsync(urlString, cancellationToken))
+                {
+                    // Ensure the response is successful
+                    registrationResponse.EnsureSuccessStatusCode();
+                    // Output the response content
+                    var responseContent = await registrationResponse.Content.ReadAsStringAsync();
+                    Debug.WriteLine(responseContent);
+                    return responseContent;
+                }
             }
             catch( Exception ex)
             {
@@ -95,12 +97,14 @@ namespace MauiUI.Services
                 var jsonData = JsonConvert.SerializeObject(postContent); // JSON data
                 var content = new StringContent(jsonData, Encoding.UTF8, "application/json");
                 // Make a GET request to an API endpoint
-                var registrationResponse = await httpClient.PostAsync(baseUrl, content, cancellationToken);
-                // Ensure the response is successful
-                registrationResponse.EnsureSuccessStatusCode();
-                // Output the response content
-                var responseContent = await registrationResponse.Content.ReadAsStringAsync();
-                return responseContent;
+                using (var registrationResponse = await httpClient.PostAsync(baseUrl, content, cancellationToken))
+                {
+                    // Ensure the response is successful
+                    registrationResponse.EnsureSuccessStatusCode();
+                    // Output the response content
+                    var responseContent = await registrationResponse.Content.ReadAsStringAsync();
+                    return responseContent;
+                }
             }
             catch(Exception ex)
             {

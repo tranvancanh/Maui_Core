@@ -1,12 +1,13 @@
-
+<?xml version="1.0" encoding="UTF-8" ?>
 <Shell
-    x:Name="shell"
-    x:Class="MauiUI.AppShell"
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    x:Name="shell"
+    x:Class="MauiUI.AppShell"
     xmlns:local="clr-namespace:MauiUI"
     xmlns:views="clr-namespace:MauiUI.Views"
     xmlns:viewmodel="clr-namespace:MauiUI.ViewModels"
+    x:DataType="viewmodel:AppShellViewModel"
     Shell.FlyoutBehavior="Flyout"
     Shell.TabBarIsVisible="False"
     Shell.BackgroundColor="#502BD3"
@@ -19,32 +20,15 @@
         ContentTemplate="{DataTemplate local:MainPage}"
         Route="MainPage" />-->
 
-    <Shell.ItemTemplate>
-        <DataTemplate>
-            <HorizontalStackLayout Spacing="25" Padding="10">
-                <Image Source="{Binding FlyoutIcon}"
-                 Aspect="AspectFill"
-                 HeightRequest="25"
-                 WidthRequest="25"
-                 HorizontalOptions="End"/>
-
-                <Label Text="{Binding Title}"
-                 FontSize="25"
-                 TextColor="Green"
-                 FontAttributes="Bold"/>
-
-            </HorizontalStackLayout>
-        </DataTemplate>
-    </Shell.ItemTemplate>
 
 
-    <FlyoutItem Title="Home Page" Icon="dotnet_bot.svg" IsVisible="True">
+    <FlyoutItem Title="Home Page" Icon="dotnet_bot.svg" FlyoutItemIsVisible="False">
         <Tab>
             <ShellContent ContentTemplate="{DataTemplate views:HomePage}" />
         </Tab>
     </FlyoutItem>
 
-    <FlyoutItem Title="Setting Page" Icon="team.svg" >
+    <FlyoutItem Title="Setting Page" Icon="team.svg" FlyoutItemIsVisible="True">
         <Tab>
             <ShellContent ContentTemplate="{DataTemplate views:SettingPage}" />
         </Tab>
@@ -52,19 +36,78 @@
 
 
     <Shell.FlyoutHeader>
-        <VerticalStackLayout Margin="10">
 
+        <StackLayout BackgroundColor="White">
+            <Image Aspect="AspectFill"
+             Source="dotnet_bot.png"
+             Opacity="1.0"
+             HeightRequest="110"/>
+
+            <StackLayout BackgroundColor="AntiqueWhite" HorizontalOptions="Fill">
+                <StackLayout.GestureRecognizers>
+                    <TapGestureRecognizer Command="{Binding LoginDataViewClickedCommand}" />
+                </StackLayout.GestureRecognizers>
+
+                <Label 
+                    TextColor="Black"
+                    FontAttributes="Bold"
+                    HorizontalOptions="CenterAndExpand" 
+                    FontSize="Medium"
+                    Padding="5, 10"
+                    >
+                    <Label.FormattedText>
+                        <FormattedString>
+                            <Span Text="{Binding LoginDataViewText}"></Span>
+                            <Span Text=" "></Span>
+                            <Span FontFamily="FontAwesome6Solid" FontSize="Medium" TextColor="Black" Text="{Binding DropText}"></Span>
+                        </FormattedString>
+                    </Label.FormattedText>
+                </Label>
+            </StackLayout>
+
+            <StackLayout HorizontalOptions="Fill" IsVisible="{Binding UserDialogIsVisible}">
+                <Grid RowSpacing="1">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition />
+                        <ColumnDefinition />
+                    </Grid.ColumnDefinitions>
+
+                    <Label Grid.Row="0" Grid.Column="0" Text="{Binding CompanyCodeText}" FontSize="Medium" HorizontalOptions="Start" VerticalOptions="Center" Padding="5, 5"/>
+                    <Label Grid.Row="0" Grid.Column="1" Text="{Binding CompanyCode}" FontSize="Medium" HorizontalOptions="EndAndExpand" VerticalOptions="Center" Padding="5, 5"/>
+                    <Label Grid.Row="1" Grid.Column="0" Text="{Binding CompanyNameText}" FontSize="Medium" HorizontalOptions="Start" VerticalOptions="Center" Padding="5, 5"/>
+                    <Label Grid.Row="1" Grid.Column="1" Text="{Binding CompanyName}" FontSize="Medium" HorizontalOptions="EndAndExpand" VerticalOptions="Center" Padding="5, 5"/>
+                    <Label Grid.Row="2" Grid.Column="0" Text="{Binding DepoCodeText}" FontSize="Medium" HorizontalOptions="Start" VerticalOptions="Center" Padding="5, 5"/>
+                    <Label Grid.Row="2" Grid.Column="1" Text="{Binding DepoCode}" FontSize="Medium" HorizontalOptions="EndAndExpand" VerticalOptions="Center" Padding="5, 5"/>
+                    <Label Grid.Row="3" Grid.Column="0" Text="{Binding DepoNameText}" FontSize="Medium" HorizontalOptions="Start" VerticalOptions="Center" Padding="5, 5"/>
+                    <Label Grid.Row="3" Grid.Column="1" Text="{Binding DepoName}" FontSize="Medium" HorizontalOptions="EndAndExpand" VerticalOptions="Center" Padding="5, 5"/>
+                    <Label Grid.Row="4" Grid.Column="0" Text="{Binding UserCodeText}" FontSize="Medium" HorizontalOptions="Start" VerticalOptions="Center" Padding="5, 5"/>
+                    <Label Grid.Row="4" Grid.Column="1" Text="{Binding UserCode}" FontSize="Medium" HorizontalOptions="EndAndExpand" VerticalOptions="Center" Padding="5, 5"/>
+                    <Label Grid.Row="5" Grid.Column="0" Text="{Binding UserNameText}" FontSize="Medium" HorizontalOptions="Start" VerticalOptions="Center" Padding="5, 5"/>
+                    <Label Grid.Row="5" Grid.Column="1" Text="{Binding UserName}" FontSize="Medium" HorizontalOptions="EndAndExpand" VerticalOptions="Center" Padding="5, 5"/>
+                </Grid>
+            </StackLayout>
+
+        </StackLayout>
+
+
+        <!--<VerticalStackLayout Margin="10">
             <Image Source="tozannet_logo.jpg" Margin="0, 15, 45, 0"/>
-
-        </VerticalStackLayout>
+        </VerticalStackLayout>-->
     </Shell.FlyoutHeader>
 
 
     <Shell.FlyoutFooter>
-        <VerticalStackLayout Margin="10">
-            <Button Text="Sign Out" Command="{Binding SignOutCommand}" />
-            <Label HorizontalTextAlignment="Start" Padding="5" Margin="0, 10" Text="App Maui Ver 1.0" FontSize="15"/>
-            <Label></Label>
+        <VerticalStackLayout Margin="5">
+            <Button Text="{Binding SignOutText}" Command="{Binding SignOutCommand}" />
+            <Label HorizontalTextAlignment="Start" Padding="5" Margin="0, 5" Text="App Maui Ver 1.0" FontSize="15"/>
         </VerticalStackLayout>
     </Shell.FlyoutFooter>
 

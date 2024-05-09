@@ -46,17 +46,17 @@ namespace MauiUI.ViewModels
         private readonly IAuthService _authService;
         private readonly IAppSettingService _appSettingService;
         private readonly ICallApiService _callApiService;
-        private readonly IServiceProvider _services;
+        private readonly IServiceProvider _serviceProvider;
 
         public LoginViewModel(IAuthService authService,
           INavigationService navigationService,
           ICallApiService callApiService,
-          IServiceProvider services)
+          IServiceProvider serviceProvider)
         {
             _callApiService = callApiService;
             _authService = authService;
             _navigationService = navigationService;
-            _services = services;
+            _serviceProvider = serviceProvider;
         }
 
         public async Task LoadLoginPageAsync()
@@ -70,13 +70,14 @@ namespace MauiUI.ViewModels
         private async Task Login()
         {
             await _authService.IsAuthenticateAsync();
+            Application.Current.MainPage = new AppShell(_serviceProvider);
             return;
         }
 
         [RelayCommand]
         private async Task SetUp()
         {
-            var page = _services.GetService<AppSettingPage>();
+            var page = _serviceProvider.GetService<AppSettingPage>();
             await _navigationService.NavigateToPage(page);
             //Application.Current.MainPage = new SeteiPage();
             return;

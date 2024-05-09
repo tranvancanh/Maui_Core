@@ -1,8 +1,10 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using MauiUI.Models;
-using Microsoft.Maui.Hosting;
+using MauiUI.Services;
+using MauiUI.Views;
 using System.Collections.ObjectModel;
+using System.Diagnostics;
 namespace MauiUI.ViewModels
 {
     public partial class AppShellViewModel : BaseViewModel
@@ -13,8 +15,70 @@ namespace MauiUI.ViewModels
         [ObservableProperty]
         private string flyoutIcon = Icons.People;
 
-        public AppShellViewModel()
+        [ObservableProperty]
+        private string signOutText;
+
+        [ObservableProperty]
+        private string loginDataViewText;
+
+        [ObservableProperty]
+        private string dropText;
+
+        [ObservableProperty]
+        private bool userDialogIsVisible;
+
+        [ObservableProperty]
+        private string companyCodeText;
+
+        [ObservableProperty]
+        private string companyCode;
+
+        [ObservableProperty]
+        private string companyNameText;
+
+        [ObservableProperty]
+        private string companyName;
+
+        [ObservableProperty]
+        private string depoCodeText;
+
+        [ObservableProperty]
+        private int depoCode;
+
+        [ObservableProperty]
+        private string depoNameText;
+
+        [ObservableProperty]
+        private string depoName;
+
+        [ObservableProperty]
+        private string userCodeText;
+
+        [ObservableProperty]
+        private string userCode;
+
+        [ObservableProperty]
+        private string userNameText;
+
+        [ObservableProperty]
+        private string userName;
+
+        private readonly IServiceProvider _serviceProvider;
+
+        public AppShellViewModel(IServiceProvider serviceProvider)
         {
+            LoginDataViewText = "ログイン情報";
+            SignOutText = "サインアウト";
+            CompanyCodeText = "会社コード";
+            CompanyNameText = "会社名";
+            DepoCodeText = "デポコード";
+            DepoNameText = "デポ名称";
+            UserCodeText = "ユーザーコード";
+            UserNameText = "ユーザー名";
+            DropText = "\uf078";
+            UserDialogIsVisible = false;
+
+            _serviceProvider = serviceProvider;
             //flyoutItems = new ObservableCollection<Maui_App.Models.FlyoutItem1>()
             //    {
             //        new Maui_App.Models.FlyoutItem1() { Title1 = "123"},
@@ -47,13 +111,44 @@ namespace MauiUI.ViewModels
         }
 
         [RelayCommand]
+        private async Task LoginDataViewClicked()
+        {
+            var getDateTime = DateTime.Now.ToString("yyyy/MM/dd HH:mm:ss.fffff");
+            Debug.WriteLine($"Click Infor User, At Date Time : {getDateTime}");
+            UserDialogIsVisible = !UserDialogIsVisible;
+            if (UserDialogIsVisible)
+                DropText = "\uf106";
+            else
+                DropText = "\uf078";
+            await Task.CompletedTask;
+        }
+
+
+        [RelayCommand]
         private async Task SignOut()
         {
             //if (Preferences.ContainsKey(nameof(App.UserDetails)))
             //{
             //    Preferences.Remove(nameof(App.UserDetails));
             //}
+
+            //var loginPage = new LoginPage(new LoginViewModel(_authService, _navigationService, _callApiService, _serviceProvider));
+            var page = _serviceProvider.GetService<LoginPage>();
+
+            Application.Current.MainPage = new NavigationPage(page);
+
+            //Application.Current.MainPage = page;
+
+            //await Shell.Current.GoToAsync($"{nameof(loginPage)}");
+
+            //await _navigationService.NavigateToPage(page);
+
             //await Shell.Current.GoToAsync($"//{nameof(LoginPage)}");
+
+            //MainPage = new NavigationPage();
+            //Application.Current.MainPage = new LoginPage(new LoginViewModel(_authService, _navigationService, _callApiService, _serviceProvider));
+            //await Shell.Current.GoToAsync($"//{nameof(LoginPage)}");
+            await Task.CompletedTask;
         }
 
         //[ObservableProperty]
