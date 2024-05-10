@@ -80,6 +80,7 @@ namespace MauiUI.Services
                     var title = "Unable to stop listening for location changes";
                     Debug.WriteLine(title + "| Error Message : " + ex.Message);
                 }
+                _isListening = false;
             }
             else
             {

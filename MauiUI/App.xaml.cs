@@ -81,8 +81,8 @@ namespace MauiUI
             }
 
             // Check service instance
-            ILocationService locationSer = MauiProgram.Services.GetRequiredService<ILocationService>();
-            if (locationSer.IsListening)
+            var locationServiceCheck = MauiProgram.Services.GetRequiredService<ILocationService>();
+            if (locationServiceCheck.IsListening)
             {
                 Debug.WriteLine("Started listening listened successfully!!!");
             }
