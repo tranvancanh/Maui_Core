@@ -1,4 +1,5 @@
 ﻿using MauiUI.AppConfigure;
+using MauiUI.Services;
 using MauiUI.Views;
 using Microsoft.Maui.Platform;
 using System.Diagnostics;
@@ -9,6 +10,7 @@ namespace MauiUI
     public partial class App : Application
     {
         public ICommand InitApp { get; set; }
+        readonly ILocationService _locationService;
 
         public App(LoginPage loginPage)
         {
@@ -37,12 +39,15 @@ namespace MauiUI
             //MainPage = loginPage;
             //MainPage = appSystemSetting;
             //MainPage = new EmployeeListPage();
-
+            _locationService = MauiProgram.Services.GetRequiredService<ILocationService>();
         }
 
         protected override async void OnStart()
         {
+            base.OnStart();
+            Debug.WriteLine("App Calling OnStart");
             await InitializeDatabase();
+            await InitializeLocationService();
         }
 
         private async Task InitializeDatabase()
@@ -61,6 +66,27 @@ namespace MauiUI
                 Debug.WriteLine("Error initializing database: " + ex.Message);
                 throw;
             }
+        }
+
+        private async Task InitializeLocationService()
+        {
+            // Get the service instance
+            //serverService = _serviceProvider.GetService<AppSettingPage>();
+            //var serverService = MauiApplication.Current.Services.GetRequiredService<ILocationService>();
+
+            // Run server initialization logic only if it hasn't been initialized before
+            if (!_locationService.IsListening)
+            {
+                await _locationService.StartListeningForegroundAsync();
+            }
+
+            // Check service instance
+            ILocationService locationSer = MauiProgram.Services.GetRequiredService<ILocationService>();
+            if (locationSer.IsListening)
+            {
+                Debug.WriteLine("Started listening listened successfully!!!");
+            }
+
         }
     }
 }

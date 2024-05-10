@@ -56,6 +56,7 @@ namespace MauiUI
             builder.Services.AddTransient<MauiUI.Services.ICallApiService, MauiUI.Services.CallApiService>();
             builder.Services.AddSingleton<MauiUI.Services.INavigationService, MauiUI.Services.NavigationService>();
             builder.Services.AddTransient<MauiUI.Services.ILoadingService, MauiUI.Services.LoadingService>();
+            builder.Services.AddSingleton<MauiUI.Services.ILocationService, LocationService>();
 
             //#if DEBUG
             //    builder.Logging.AddDebug();
