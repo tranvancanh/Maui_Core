@@ -48,9 +48,9 @@
         </Tab>
     </FlyoutItem>
 
-    <FlyoutItem Title="Setting Page" Icon="dotnet_bot.svg" FlyoutItemIsVisible="True">
+    <FlyoutItem Title="Admin Page" Icon="dotnet_bot.svg" FlyoutItemIsVisible="True">
         <Tab>
-            <ShellContent ContentTemplate="{DataTemplate views:SettingPage}" />
+            <ShellContent ContentTemplate="{DataTemplate views:AdminPage}" />
         </Tab>
     </FlyoutItem>
 

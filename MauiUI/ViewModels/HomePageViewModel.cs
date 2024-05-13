@@ -87,19 +87,19 @@ namespace MauiUI.ViewModels
                 {
                     case 1:
                         {
-                            var page = _serviceProvider.GetService<NewPage1>();
+                            var page = _serviceProvider.GetService<ExamplePage1>();
                             await _navigationService.NavigateToPage(page);
                             break;
                         }
                     case 2:
                         {
-                            var page = _serviceProvider.GetService<NewPage2>();
+                            var page = _serviceProvider.GetService<ExamplePage2>();
                             await _navigationService.NavigateToPage(page);
                             break;
                         }
                     case 3:
                         {
-                            var page = _serviceProvider.GetService<NewPage3>();
+                            var page = _serviceProvider.GetService<ExamplePage3>();
                             await _navigationService.NavigateToPage(page);
                             break;
                         }

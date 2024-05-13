@@ -123,6 +123,15 @@
 	  <Compile Update="Views\LoadingPopup.xaml.cs">
 	    <DependentUpon>LoadingPopup.xaml</DependentUpon>
 	  </Compile>
+	  <Compile Update="Views\ExamplePage1.xaml.cs">
+	    <DependentUpon>ExamplePage1.xaml</DependentUpon>
+	  </Compile>
+	  <Compile Update="Views\ExamplePage2.xaml.cs">
+	    <DependentUpon>ExamplePage2.xaml</DependentUpon>
+	  </Compile>
+	  <Compile Update="Views\ExamplePage3.xaml.cs">
+	    <DependentUpon>ExamplePage3.xaml</DependentUpon>
+	  </Compile>
 	</ItemGroup>
 
 	<ItemGroup>
@@ -132,16 +141,16 @@
 	  <MauiXaml Update="Views\LoginPage.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
-	  <MauiXaml Update="Views\NewPage1.xaml">
+	  <MauiXaml Update="Views\ExamplePage1.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
-	  <MauiXaml Update="Views\NewPage2.xaml">
+	  <MauiXaml Update="Views\ExamplePage2.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
-	  <MauiXaml Update="Views\NewPage3.xaml">
+	  <MauiXaml Update="Views\ExamplePage3.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
-	  <MauiXaml Update="Views\SettingPage.xaml">
+	  <MauiXaml Update="Views\AdminPage.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	  <MauiXaml Update="Views\LoadingPopup.xaml">

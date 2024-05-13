@@ -41,18 +41,18 @@ namespace MauiUI
             builder.Services.AddTransient<LoginPage>();
             builder.Services.AddTransient<AppSettingPage>();
             builder.Services.AddTransient<LoadingPopup>();
-            builder.Services.AddTransient<NewPage1>();
-            builder.Services.AddTransient<NewPage2>();
-            builder.Services.AddTransient<NewPage3>();
+            builder.Services.AddTransient<ExamplePage1>();
+            builder.Services.AddTransient<ExamplePage2>();
+            builder.Services.AddTransient<ExamplePage3>();
 
             // Add View Models
             builder.Services.AddTransient<HomePageViewModel>();
             builder.Services.AddTransient<AppShellViewModel>();
             builder.Services.AddTransient<LoginViewModel>();
             builder.Services.AddTransient<AppSettingViewModel>();
-            builder.Services.AddTransient<NewPage1ViewModel>();
-            builder.Services.AddTransient<NewPage2ViewModel>();
-            builder.Services.AddTransient<NewPage3ViewModel>();
+            builder.Services.AddTransient<ExamplePage1ViewModel>();
+            builder.Services.AddTransient<ExamplePage2ViewModel>();
+            builder.Services.AddTransient<ExamplePage3ViewModel>();
 
             // Add Services
             builder.Services.AddSingleton<MauiUI.Services.IAuthService, MauiUI.Services.AuthService>();
@@ -129,20 +129,6 @@ namespace MauiUI
 #endif
                 }
             });
-
-//            Microsoft.Maui.Handlers.LabelHandler.Mapper.AppendToMapping("MyLabel", (handler, view) =>
-//            {
-//#if __ANDROID__
-
-//    if (handler.PlatformView.Background is Android.Graphics.Drawables.RippleDrawable ripple )
-//       { 
-//            ripple.SetColor(Android.Content.Res.ColorStateList.ValueOf(Android.Graphics.Color.Gray));
-//        };
-
-//#endif
-//            });
-
-
 
             var app = builder.Build();
 

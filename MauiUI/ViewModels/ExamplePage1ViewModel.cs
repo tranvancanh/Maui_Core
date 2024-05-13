@@ -1,7 +1,7 @@
 ﻿
 namespace MauiUI.ViewModels
 {
-    public class NewPage1ViewModel
+    public class ExamplePage1ViewModel
     {
 
     }
