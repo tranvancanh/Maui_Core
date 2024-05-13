@@ -1,6 +1,6 @@
 ﻿namespace MauiUI.ViewModels
 {
-    public class ExamplePage3ViewModel
+    public partial class ExamplePage3ViewModel : BaseViewModel
     {
 
     }

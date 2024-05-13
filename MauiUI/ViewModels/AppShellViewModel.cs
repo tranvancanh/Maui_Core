@@ -1,8 +1,10 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using MauiUI.Models;
+using MauiUI.Services;
 using MauiUI.Views;
 using System.Collections.ObjectModel;
+using System.ComponentModel;
 using System.Diagnostics;
 namespace MauiUI.ViewModels
 {
@@ -63,6 +65,7 @@ namespace MauiUI.ViewModels
         private string userName;
 
         private readonly IServiceProvider _serviceProvider;
+        private readonly INavigationService _navigationService;
 
         public AppShellViewModel(IServiceProvider serviceProvider)
         {
@@ -127,6 +130,7 @@ namespace MauiUI.ViewModels
                 DropText = "\uf078";
             await Task.CompletedTask;
         }
+
 
 
         [RelayCommand]

@@ -3,6 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="MauiUI.Views.ExamplePage3"
              xmlns:viewmodels="clr-namespace:MauiUI.ViewModels"
+             x:DataType="viewmodels:ExamplePage3ViewModel"
              Title="NewPage3">
     <VerticalStackLayout>
         <Label 
