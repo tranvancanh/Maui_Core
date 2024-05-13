@@ -32,15 +32,15 @@ namespace MauiUI.Services
                     var request = new GeolocationListeningRequest(GeolocationAccuracy.Medium);
                     successStatus = await Geolocation.StartListeningForegroundAsync(request);
                     _isListening = true;
+                    var status = successStatus
+                      ? "Started listening for foreground location updates"
+                      : "Couldn't start listening";
+                    Debug.WriteLine(status);
                 }
                 else
                 {
                     successStatus = true;
                 }
-                var status = successStatus
-                       ? "Started listening for foreground location updates"
-                       : "Couldn't start listening";
-                Debug.WriteLine(status);
                 return successStatus && _isListening;
             }
             catch (Exception ex)

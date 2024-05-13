@@ -5,6 +5,7 @@ using MauiUI.ViewModels;
 using MauiUI.Views;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Maui.LifecycleEvents;
+using Microsoft.Maui.Platform;
 using System.Reflection;
 
 namespace MauiUI
@@ -106,10 +107,38 @@ namespace MauiUI
 #if __ANDROID__
                     MauiUI.Platforms.Android.Renderers.CustomEntryMapper.Map(handler, view);
 //#elif __IOS__
-//                    MauiUI.Platforms.iOS.Renderers.CustomEntryMapper.Map(handler, view);
+//                    MauiUI.Platform.iOS.Renderers.CustomEntryMapper.Map(handler, view);
 #endif
                 }
             });
+
+            //Border less entry
+            Microsoft.Maui.Handlers.EntryHandler.Mapper.AppendToMapping(nameof(BorderlessEntry), (handler, view) =>
+            {
+                if (view is BorderlessEntry)
+                {
+#if __ANDROID__
+                    handler.PlatformView.SetBackgroundColor(Colors.Transparent.ToPlatform());
+#elif __IOS__
+                    handler.PlatformView.BackgroundColor = UIKit.UIColor.Clear;
+                    handler.PlatformView.BorderStyle = UIKit.UITextBorderStyle.None;
+#endif
+                }
+            });
+
+//            Microsoft.Maui.Handlers.LabelHandler.Mapper.AppendToMapping("MyLabel", (handler, view) =>
+//            {
+//#if __ANDROID__
+
+//    if (handler.PlatformView.Background is Android.Graphics.Drawables.RippleDrawable ripple )
+//       { 
+//            ripple.SetColor(Android.Content.Res.ColorStateList.ValueOf(Android.Graphics.Color.Gray));
+//        };
+
+//#endif
+//            });
+
+
 
             var app = builder.Build();
 

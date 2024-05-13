@@ -16,19 +16,7 @@ namespace MauiUI
         {
             InitializeComponent();
 
-            //Border less entry
-            Microsoft.Maui.Handlers.EntryHandler.Mapper.AppendToMapping(nameof(BorderlessEntry), (handler, view) =>
-            {
-                if (view is BorderlessEntry)
-                {
-#if __ANDROID__
-                    handler.PlatformView.SetBackgroundColor(Colors.Transparent.ToPlatform());
-#elif __IOS__
-                    handler.PlatformView.BackgroundColor = UIKit.UIColor.Clear;
-                    handler.PlatformView.BorderStyle = UIKit.UITextBorderStyle.None;
-#endif
-                }
-            });
+            
 
             ResourceDictionary targetResource = Microsoft.Maui.Controls.Application.Current.Resources.MergedDictionaries.ElementAt(0);
 
