@@ -4,10 +4,12 @@ namespace MauiUI.Views;
 
 public partial class HomePage : ContentPage
 {
-	public HomePage()
+    readonly HomePageViewModel _homePageViewModel;
+    public HomePage(HomePageViewModel homePageViewModel)
 	{
         InitializeComponent();
-        BindingContext = new HomePageViewModel();
+        _homePageViewModel = homePageViewModel;
+        BindingContext = _homePageViewModel;
     }
 
    

@@ -9,7 +9,7 @@
     {
         public async Task<bool> IsAuthenticateAsync()
         {
-            await Task.Delay(1000);
+            await Task.CompletedTask;
             return true;
         }
     }

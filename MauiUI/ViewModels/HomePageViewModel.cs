@@ -1,6 +1,8 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using MauiUI.Models;
+using MauiUI.Services;
+using MauiUI.Views;
 using System.Collections.ObjectModel;
 
 namespace MauiUI.ViewModels
@@ -22,9 +24,15 @@ namespace MauiUI.ViewModels
         private MenuX selectedItems;
 
 
-        public HomePageViewModel()
+        private readonly INavigationService _navigationService;
+        private readonly IServiceProvider _serviceProvider;
+
+        public HomePageViewModel(INavigationService navigationService,
+          IServiceProvider serviceProvider)
         {
             UserName = "東山テスト";
+            _navigationService  = navigationService;
+            _serviceProvider = serviceProvider;
             items.Add(
                 new MenuX()
                 {
@@ -70,10 +78,32 @@ namespace MauiUI.ViewModels
         {
             try
             {
-
                 var menuClicked = SelectedItems;
 
                 System.Diagnostics.Debug.WriteLine($"Menu PageID {menuClicked.HandyPageID} is Clicked at {DateTime.Now.ToString("yyyy/MM/dd HH:mm:ss")}");
+
+                var pageId = menuClicked.HandyPageID;
+                switch (pageId)
+                {
+                    case 1:
+                        {
+                            var page = _serviceProvider.GetService<NewPage1>();
+                            await _navigationService.NavigateToPage(page);
+                            break;
+                        }
+                    case 2:
+                        {
+                            var page = _serviceProvider.GetService<NewPage2>();
+                            await _navigationService.NavigateToPage(page);
+                            break;
+                        }
+                    case 3:
+                        {
+                            var page = _serviceProvider.GetService<NewPage3>();
+                            await _navigationService.NavigateToPage(page);
+                            break;
+                        }
+                }
 
                 // DoSomething
                 await Task.CompletedTask;
@@ -82,6 +112,10 @@ namespace MauiUI.ViewModels
             {
                 System.Diagnostics.Debug.WriteLine(ex.ToString());
                 throw;
+            }
+            finally
+            {
+                SelectedItems = new MenuX();
             }
         }
     }

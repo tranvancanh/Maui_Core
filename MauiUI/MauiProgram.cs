@@ -34,26 +34,30 @@ namespace MauiUI
                 });
             builder.AddAppSettings();
 
-            builder.Services.AddSingleton<IAuthService, AuthService>();
-            builder.Services.AddSingleton<IDataService, DataService>();
-            builder.Services.AddSingleton<IAppSettingService, AppSettingService>();
 
             // Add Views
+            builder.Services.AddTransient<HomePage>();
             builder.Services.AddTransient<AppShell>();
             builder.Services.AddTransient<LoginPage>();
             builder.Services.AddTransient<AppSettingPage>();
-            builder.Services.AddTransient<EmployeeListPage>();
             builder.Services.AddTransient<LoadingPopup>();
+            builder.Services.AddTransient<NewPage1>();
+            builder.Services.AddTransient<NewPage2>();
+            builder.Services.AddTransient<NewPage3>();
 
             // Add View Models
+            builder.Services.AddTransient<HomePageViewModel>();
             builder.Services.AddTransient<AppShellViewModel>();
             builder.Services.AddTransient<LoginViewModel>();
             builder.Services.AddTransient<AppSettingViewModel>();
-            builder.Services.AddTransient<EmployeesViewModel>();
+            builder.Services.AddTransient<NewPage1ViewModel>();
+            builder.Services.AddTransient<NewPage2ViewModel>();
+            builder.Services.AddTransient<NewPage3ViewModel>();
 
             // Add Services
             builder.Services.AddSingleton<MauiUI.Services.IAuthService, MauiUI.Services.AuthService>();
             builder.Services.AddSingleton<MauiUI.Services.IDataService, MauiUI.Services.DataService>();
+            builder.Services.AddSingleton<MauiUI.Services.IAppSettingService, AppSettingService>();
             builder.Services.AddTransient<MauiUI.Services.ICallApiService, MauiUI.Services.CallApiService>();
             builder.Services.AddSingleton<MauiUI.Services.INavigationService, MauiUI.Services.NavigationService>();
             builder.Services.AddTransient<MauiUI.Services.ILoadingService, MauiUI.Services.LoadingService>();

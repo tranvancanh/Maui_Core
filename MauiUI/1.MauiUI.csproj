@@ -51,10 +51,10 @@
 
 	<ItemGroup>
 		<!-- App Icon -->
-		<MauiIcon Include="Resources\AppIcon\appicon.png" Color="#FFF"/>
+		<MauiIcon Include="Resources\AppIcon\appicon.png" Color="#FFF" />
 
 		<!-- Splash Screen -->
-		<MauiSplashScreen Include="Resources\Splash\appicon.png" Color="#FFF" BaseSize="256,256" />
+		<MauiSplashScreen Include="Resources\Splash\appicon.png" Color="#FFF" BaseSize="256,128" />
 
 		<!-- Images -->
 		<MauiImage Include="Resources\Images\*" />
@@ -129,10 +129,16 @@
 	  <MauiXaml Update="Views\AppSettingPage.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
-	  <MauiXaml Update="Views\EmployeeListPage.xaml">
+	  <MauiXaml Update="Views\LoginPage.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
-	  <MauiXaml Update="Views\LoginPage.xaml">
+	  <MauiXaml Update="Views\NewPage1.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="Views\NewPage2.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="Views\NewPage3.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	  <MauiXaml Update="Views\SettingPage.xaml">
