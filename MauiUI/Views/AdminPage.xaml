@@ -7,13 +7,13 @@
              x:Class="MauiUI.Views.AdminPage"
              x:DataType="viewmodels:AdminPageViewModel"
              Title="Admin Page">
-    <VerticalStackLayout>
+    <StackLayout>
         <Label 
             Text="Welcome to Admin Page .NET MAUI!"
             VerticalOptions="Center" 
             HorizontalOptions="Center" />
-        <Button Text="Back" Command="{Binding BackAdmin123Command}">
+        <Button Text="Back" Command="{Binding BackAdminCommand}">
         
         </Button>
-    </VerticalStackLayout>
+    </StackLayout>
 </ContentPage>

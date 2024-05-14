@@ -9,6 +9,9 @@
              x:DataType="viewmodels:HomePageViewModel"
              Title="メニュー"
              >
+    <ContentPage.Behaviors>
+        <toolkit:EventToCommandBehavior Command="{Binding AppearingCommand}" EventName="Appearing" />
+    </ContentPage.Behaviors>
 
     <ContentPage.Resources>
         <Style TargetType="Label" >

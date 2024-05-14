@@ -3,18 +3,16 @@ using CommunityToolkit.Mvvm.Input;
 using MauiUI.Models;
 using MauiUI.Services;
 using MauiUI.Views;
-using System.Collections.ObjectModel;
-using System.ComponentModel;
 using System.Diagnostics;
 namespace MauiUI.ViewModels
 {
     public partial class AppShellViewModel : BaseViewModel
     {
         [ObservableProperty]
-        private ObservableCollection<MauiUI.Models.FlyoutItem> flyoutItems = new ObservableCollection<MauiUI.Models.FlyoutItem>();
+        private string flyoutIcon = Icons.People;
 
         [ObservableProperty]
-        private string flyoutIcon = Icons.People;
+        private bool isAdmin;
 
         [ObservableProperty]
         private string signOutText;
@@ -72,49 +70,22 @@ namespace MauiUI.ViewModels
             LoginDataViewText = "ログイン情報";
             SignOutText = "\uf2f5 ログアウト";
             CompanyCodeText = "会社コード";
-            CompanyCode = "CompanyCode";
+            CompanyCode = "1";
             CompanyNameText = "会社名";
-            CompanyName = "CompanyName";
+            CompanyName = "東山テスト";
             DepoCodeText = "デポコード";
             DepoCode = 10;
             DepoNameText = "デポ名称";
-            DepoName = "DepoName";
+            DepoName = "名和デポ";
             UserCodeText = "ユーザーコード";
-            UserCode = "UserCode";
+            UserCode = "1012";
             UserNameText = "ユーザー名";
-            UserName = "UserName";
+            UserName = "田中";
             DropText = "\uf078";
             UserDialogIsVisible = false;
+            IsAdmin = true;
 
             _serviceProvider = serviceProvider;
-            //flyoutItems = new ObservableCollection<Maui_App.Models.FlyoutItem1>()
-            //    {
-            //        new Maui_App.Models.FlyoutItem1() { Title1 = "123"},
-            //        new Maui_App.Models.FlyoutItem1() { Title1 = "1234" }
-            //    };
-            var flyoutItem = new Models.FlyoutItem()
-            {
-                Title = "Dashboard Page",
-                //Route = nameof(StudentDashboardPage),
-                //FlyoutDisplayOptions = FlyoutDisplayOptions.AsMultipleItems,
-                //Items =
-                //            {
-                //                new ShellContent
-                //                {
-                //                    Icon = Icons.Dashboard,
-                //                    Title = "Student Dashboard",
-                //                    ContentTemplate = new DataTemplate(typeof(StudentDashboardPage)),
-                //                },
-                //                new ShellContent
-                //                {
-                //                    Icon = Icons.AboutUs,
-                //                    Title = "Student Profile",
-                //                    ContentTemplate = new DataTemplate(typeof(StudentProfilePage)),
-                //                },
-                //            }
-            };
-
-            flyoutItems.Add(flyoutItem);
 
         }
 
@@ -131,22 +102,12 @@ namespace MauiUI.ViewModels
             await Task.CompletedTask;
         }
 
-
-
         [RelayCommand]
         private async Task SignOut()
         {
             //var loginPage = new LoginPage(new LoginViewModel(_authService, _navigationService, _callApiService, _serviceProvider));
             var page = _serviceProvider.GetService<LoginPage>();
             Application.Current.MainPage = new NavigationPage(page);
-
-            //Application.Current.MainPage = page;
-            //await Shell.Current.GoToAsync($"{nameof(loginPage)}");
-            //await _navigationService.NavigateToPage(page);
-            //await Shell.Current.GoToAsync($"//{nameof(LoginPage)}");
-            //MainPage = new NavigationPage();
-            //Application.Current.MainPage = new LoginPage(new LoginViewModel(_authService, _navigationService, _callApiService, _serviceProvider));
-            //await Shell.Current.GoToAsync($"//{nameof(LoginPage)}");
             await Task.CompletedTask;
         }
 

@@ -33,27 +33,46 @@ namespace MauiUI.ViewModels
             UserName = "東山テスト";
             _navigationService  = navigationService;
             _serviceProvider = serviceProvider;
-            items.Add(
-                new MenuX()
-                {
-                    HandyPageID = 1,
-                    HandyPageName = "Page 1",
-                    HandyPageNumber = 1
-                });
-            items.Add(
-                new MenuX()
-                {
-                    HandyPageID = 2,
-                    HandyPageName = "Page 2",
-                    HandyPageNumber = 2
-                });
-            items.Add(
-                new MenuX()
-                {
-                    HandyPageID = 3,
-                    HandyPageName = "Page 3",
-                    HandyPageNumber = 3
-                });
+        }
+
+        [RelayCommand]
+        private async Task Appearing()
+        {
+            try
+            {
+                // Call Api result
+
+                Items.Clear();
+                Items.Add(
+                   new MenuX()
+                   {
+                       HandyPageID = 1,
+                       HandyPageName = "Page 1",
+                       HandyPageNumber = 1
+                   });
+                Items.Add(
+                    new MenuX()
+                    {
+                        HandyPageID = 2,
+                        HandyPageName = "Page 2",
+                        HandyPageNumber = 2
+                    });
+                Items.Add(
+                    new MenuX()
+                    {
+                        HandyPageID = 3,
+                        HandyPageName = "Page 3",
+                        HandyPageNumber = 3
+                    });
+                var currentpage = Shell.Current;
+
+                await Task.CompletedTask;
+            }
+            catch (Exception ex)
+            {
+                System.Diagnostics.Debug.WriteLine(ex.ToString());
+                throw;
+            }
         }
 
         [RelayCommand]

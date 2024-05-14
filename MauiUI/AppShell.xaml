@@ -44,20 +44,20 @@
 
     <FlyoutItem Title="Home Page" Icon="dotnet_bot.svg" FlyoutItemIsVisible="False">
         <Tab>
-            <ShellContent ContentTemplate="{DataTemplate views:HomePage}" />
+            <ShellContent ContentTemplate="{DataTemplate views:HomePage}"/>
         </Tab>
     </FlyoutItem>
 
-    <FlyoutItem Title="Admin Page" Icon="dotnet_bot.svg" FlyoutItemIsVisible="True">
+    <FlyoutItem Title="Admin Page" Icon="dotnet_bot.svg" IsVisible="{Binding IsAdmin}">
         <Tab>
-            <ShellContent ContentTemplate="{DataTemplate views:AdminPage}" />
+            <ShellContent ContentTemplate="{DataTemplate views:AdminPage}"/>
         </Tab>
     </FlyoutItem>
 
 
     <Shell.FlyoutHeader>
 
-        <StackLayout BackgroundColor="{DynamicResource TextBoxBackColor}">
+        <StackLayout BackgroundColor="{DynamicResource TextBoxBackColor}" Margin="5, 10">
             <Image Aspect="AspectFill"
              Source="dotnet_bot.png"
              Opacity="1.0"
@@ -85,7 +85,7 @@
                 </Label>
             </StackLayout>
 
-            <StackLayout HorizontalOptions="Fill" IsVisible="{Binding UserDialogIsVisible}" >
+            <StackLayout HorizontalOptions="Fill" IsVisible="{Binding UserDialogIsVisible}">
                 <Grid RowSpacing="1" ColumnSpacing="1" >
                     <Grid.RowDefinitions>
                         <RowDefinition Height="Auto" />
