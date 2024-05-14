@@ -57,11 +57,18 @@
 
     <Shell.FlyoutHeader>
 
-        <StackLayout BackgroundColor="{DynamicResource TextBoxBackColor}" Margin="5, 10">
-            <Image Aspect="AspectFill"
-             Source="dotnet_bot.png"
-             Opacity="1.0"
-             HeightRequest="110"/>
+        <StackLayout BackgroundColor="{DynamicResource TextBoxBackColor}" Margin="0, 10">
+            <Grid
+                HorizontalOptions="FillAndExpand">
+                <Image x:Name="TopImage" Source="dotnet_bot.png" Opacity="1.0" Aspect="AspectFill" HeightRequest="100"/>
+                <Label
+                     Text="スマホDE検品"
+                     VerticalOptions="Fill"
+                     HorizontalOptions="EndAndExpand"
+                     Padding="10"
+                     FontSize="Large"
+                     TextColor="Black"/>
+            </Grid>
 
             <StackLayout BackgroundColor="AntiqueWhite" HorizontalOptions="Fill">
                 <StackLayout.GestureRecognizers>
