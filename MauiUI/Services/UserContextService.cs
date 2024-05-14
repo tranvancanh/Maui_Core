@@ -1,4 +1,5 @@
-﻿using MauiUI.Models;
+﻿using MauiUI.AppConfigure;
+using MauiUI.Models;
 
 namespace MauiUI.Services
 {
@@ -9,13 +10,22 @@ namespace MauiUI.Services
 
     public class UserContextService : IUserContextService
     {
+        //public static UserTable User { get;  }
+        //private UserTable _user { get; set; }
+        //public UserContextService() 
+        //{
+
+        //}
+
         public async Task<UserTable> GetUserAsync()
         {
             // get user from Sql Lite
-            var user =  new UserTable();
-
-            await Task.CompletedTask;
-            return user;
+            var userContext = (await SqlLiteAccess<UserTable>.GetAsync()).FirstOrDefault(); ;
+            if(userContext == null)
+            {
+                throw new NullReferenceException("User information does not exist!!!");
+            }
+            return userContext;
         }
     }
 }

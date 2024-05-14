@@ -56,7 +56,7 @@ namespace MauiUI
 
             // Add Services
             builder.Services.AddSingleton<MauiUI.Services.IAuthService, MauiUI.Services.AuthService>();
-            builder.Services.AddSingleton<MauiUI.Services.IUserContextService, MauiUI.Services.UserContextService>();
+            builder.Services.AddTransient<MauiUI.Services.IUserContextService, MauiUI.Services.UserContextService>();
             builder.Services.AddSingleton<MauiUI.Services.IAppSettingService, AppSettingService>();
             builder.Services.AddTransient<MauiUI.Services.ICallApiService, MauiUI.Services.CallApiService>();
             builder.Services.AddSingleton<MauiUI.Services.INavigationService, MauiUI.Services.NavigationService>();
