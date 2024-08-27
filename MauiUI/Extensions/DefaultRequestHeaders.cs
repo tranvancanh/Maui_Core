@@ -56,6 +56,6 @@ namespace MauiUI.Extensions
             }).FirstOrDefault();
 
             return resultQuery;
-    }
+        }
     }
 }
